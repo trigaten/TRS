@@ -1,0 +1,29 @@
+<html>
+<script>
+
+    function doTeachersSectionUpdate(state) {
+        if (state > 2){
+            document.getElementById("create_teacher_forms").classList.remove("disabled");
+            if (state > 3) {
+                document.getElementById("tEmailButton").classList.remove("disabled");
+                document.getElementById("tEmailButtonIcon").innerHTML = "email";
+                //change create_student_form to blue to show done
+                document.getElementById("create_teacher_forms").className = "waves-effect waves-light btn-small blue lighten-2";
+                document.getElementById("tCreateFormIcon").innerHTML = "check";
+                if (state > 4) {
+                    //change create_student_form to blue to show done
+                    document.getElementById("tEmailButton").className = "waves-effect waves-light btn-small blue lighten-2";
+                    document.getElementById("tEmailButtonIcon").innerHTML = "check";
+                    document.getElementById("tReminderEmailButton").classList.remove("disabled");
+                }
+            }
+        }
+        google.script.run.withSuccessHandler(setTeacherMessageText).getTeacherMessage();
+    }
+    function setTeacherMessageText(msg) {
+        document.getElementById("t-textarea1").innerHTML = msg;
+        doTeacherEditButtonUpdate();
+    }
+</script>
+
+</html>

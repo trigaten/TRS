@@ -1,0 +1,87 @@
+<html>
+<div class="center-align">
+  Teachers <br><br>
+  <a id="ft-edit-button" class="waves-effect waves-light btn-small green darken-1"
+    onclick="toggleFinalTeacherTextInput()"><i class="material-icons right">email</i>EDIT</a>
+  <a id="fTEmailButton" class="waves-effect waves-light btn-small disabled green darken-1"
+    onclick="confirmSendFinalTeacherEmails()"><i class="material-icons right">
+      <div id="fTEmailButtonIcon">lock_outline</div>
+    </i>SEND</a>
+
+  <div id="ft-message-info"><br>
+    <div class="input-field col s12">
+      <textarea id="ft-textarea1" class="materialize-textarea">Enter\nYour\nMessage\nHere</textarea>
+      <script>
+      </script>
+      <label for="ft-textarea1">Enter Message</label>
+    </div>
+  </div>
+</div>
+<script>
+  var final_teacher_messageInfoOpen = false;
+  
+  $('#ft-message-info').toggle(1);
+  function toggleFinalTeacherTextInput() {
+    $('#ft-message-info').toggle(500);
+    const elem = document.getElementById("ft-edit-button");
+    //being closed
+    if (final_teacher_messageInfoOpen) {
+      google.script.run.setFinalTeacherMessage($("#ft-textarea1").val());
+      elem.innerHTML = `<i class="material-icons right">email</i>EDIT`;
+      elem.classList.remove("red");
+      doFinalTeacherEditButtonUpdate();
+    } else {
+      elem.classList.remove("green"); elem.classList.remove("blue"); elem.classList.remove("darken-1");
+      elem.innerHTML = `SAVE`;
+      elem.classList.add("red");
+    }
+    final_teacher_messageInfoOpen = !final_teacher_messageInfoOpen;
+  }
+
+  //Handle SENDING final teacher emails
+  function confirmSendFinalTeacherEmails() {
+    confirmExecution(sendFinalTeacherEmails, "Are you sure you would like to send the final teacher emails?");
+  }
+
+  function sendFinalTeacherEmails() {
+    setTitleText("Sending Final Teacher Emails")
+    showProgressBar();
+    try {
+      google.script.run
+      .withSuccessHandler(handleFinalTeacherEmailSendResult)
+      .withFailureHandler(toastUnknownError)
+      .sendFinalTeacherEmails();
+    } catch (e) {
+      toastUnknownError();
+      hideProgressBar();
+    }
+  }
+
+  function handleFinalTeacherEmailSendResult(response) {
+    setTitleTextFinished();
+    toastResponseWithMsg(response)
+    hideProgressBar();
+    google.script.run
+      .withSuccessHandler(doFinalSectionUpdate)
+      .withFailureHandler(toastUnknownError)
+      .getProgramState();
+    resetTitleText();
+  }
+
+  function doFinalTeacherEditButtonUpdate() {
+    if ($("#ft-textarea1").val() != "") {
+      document.getElementById("ft-edit-button").classList.add("blue");
+      document.getElementById("ft-edit-button").classList.add("lighten-2");
+      document.getElementById("ft-edit-button").classList.remove("green");
+      document.getElementById("ft-edit-button").classList.remove("darken-1");
+    } else {
+      document.getElementById("ft-edit-button").classList.remove("blue");
+      document.getElementById("ft-edit-button").classList.remove("lighten-2");
+      document.getElementById("ft-edit-button").classList.add("green");
+      document.getElementById("ft-edit-button").classList.add("darken-1");
+    }
+  }
+  
+</script>
+
+</html>

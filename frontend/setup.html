@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <?!= include("frontend/appends/header.html"); ?>
+  <?!= include("frontend/style.html"); ?>
+  <?!= include("frontend/confirm-and-load.html"); ?>
+</head>
+
+<body>
+  <div class="row">
+    <div class="col s12 m6">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title" id="setup-title">Welcome to TRS</span>
+          <p>
+            Welcome to TRS! Click on the button below and I'll set up some Sheets for you. Note: if any errors occur, they will be reported to TRS.
+          </p>
+          <br>
+          <div class="center-align"><a id="setup_button" class="waves-effect waves-light btn"
+              onclick="confirmDoSetup()">START SETUP</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="center-align">
+      <div class="preloader-wrapper active hide" id="loading-circle">
+        <div class="spinner-layer spinner-red-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  function confirmDoSetup() {
+    confirmExecution(doSetup, `
+    Are you sure you want to begin setup? By beginning setup you agree to our <a href="https://teacherrecsystem.tech/TOS.html" target="_blank">Terms of Service<a>.`)
+  }
+
+  function doSetup() {
+    document.getElementById("setup-title").innerText = "Setting Up"
+    document.getElementById("loading-circle").classList.remove("hide")
+    google.script.run
+      .withSuccessHandler(handleDoSetupResult)
+      .withFailureHandler(toastUnknownSetupError)
+      .doSetup()
+  }
+
+  function handleDoSetupResult(response) {
+    if (response.result == "success") {
+      document.getElementById("setup-title").innerText = "Finished"
+      toastSuccessWithMsg(response.message)
+      google.script.run.showSidebar();
+    } else {
+      toastKnownError(response.message)
+    }
+    document.getElementById("loading-circle").classList.add("hide")
+  }
+</script>
+<?!= include("frontend/appends/footer.html"); ?>
+<script>
+  document.getElementById("settings-button").classList.add("disabled")
+</script>
+
+</html>

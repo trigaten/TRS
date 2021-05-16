@@ -1,0 +1,48 @@
+loading stuff
+https://developers.google.com/apps-script/guides/html/best-practices#javascript.html
+
+
+
+script properties depreccated
+https://developers.google.com/apps-script/reference/properties/properties-service
+
+//TODO
+dont need to ask user for project name, just pull from whatever they named SpreadSheet
+
+//TODO
+if sheet if project automatically open sidebar onOpen
+
+//TODO handle that weird sign in problem multiple accounts...
+
+//TODO handle run out of emails
+//edit text input?
+//todo Lock text that shouldnt be changed
+//todo test for nulls when retrieving msg text
+
+TIGGLE Questions
+how did you copy the names of all the teachers/students
+
+//TODO NORMALIZEEEE
+
+
+//TODO security, switch forms from edit when sharing stuff with users enabled...
+
+weird thing happens w final send button updates?
+
+maybe ask how much time has been saved on forms
+handle students w/same name? show it to college counselors so they can deal w it
+
+handle runtime barrier
+email people when forms all done being created?
+
+Alphabetize teacher names in list
+
+Must always handle Other last
+
+thread safety on cells
+
+all file/folder accessors may return exceptions.
+
+otherwise return response objects
+
+onEdit cell expander for emails?

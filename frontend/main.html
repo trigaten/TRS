@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Page</title>
+  <?!= include("frontend/appends/header.html"); ?>
+  <?!= include("frontend/style.html"); ?>
+  <?!= include("frontend/sections/updates/studentsSectionUpdate.html"); ?>
+  <?!= include("frontend/sections/updates/teachersSectionUpdate.html"); ?>
+  <?!= include("frontend/sections/updates/finalSectionUpdate.html"); ?>
+</head>
+
+<body>
+    
+  <div class="wrapper" style="padding:0px;margin:0;margin-bottom: -200px;">
+    <div class="top" style="padding:0px;margin:0;margin-bottom: -200px;">
+      <div class="nav-wrapper" style="padding:0px;margin:0;margin-bottom: -200px;">
+        <div class="card blue-grey" style="padding:0px;margin:0;margin-bottom: -200px;">
+          <div class="card-content white-text">
+            <span class="card-title">
+              <div id="title">...</div>
+            </span>
+            <div id="load">
+              <?!= include("frontend/confirm-and-load.html"); ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="middle" id="middle">
+      
+        <ul class="collapsible expandable" id="sections">
+          
+          <li>
+            <div class="collapsible-header"><i class="material-icons">face</i>Students</div>
+            <div class="collapsible-body"><br><span>
+                <?!= include("frontend/sections/students_section.html"); ?>
+              </span></div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">people</i>Teachers</div>
+            <div class="collapsible-body"><span>
+                <?!= include("frontend/sections/teachers_section.html"); ?>
+              </span></div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">send</i>Final Steps</div>
+            <div class="collapsible-body"><span>
+                <?!= includeIncluded("frontend/sections/final_section.html"); ?>
+              </span></div>
+          </li>
+        </ul>
+
+        <script>
+          var elem = document.querySelector('.collapsible.expandable');
+          var instance = M.Collapsible.init(elem, {
+            accordion: false
+          });
+
+          function doMainPageUpdate(projectTitle) {
+            document.getElementById("title").innerHTML = projectTitle;
+          }
+
+          google.script.run
+            .withSuccessHandler(doMainPageUpdate)
+            .withFailureHandler(toastKnownError)
+            .getProjectTitle();
+        </script>
+
+  <?!= include("frontend/settings.html"); ?>
+      </div>
+  </div>
+
+  <div class="bottom" style="padding:0px;margin: 0px;"></div>
+  <?!= include('frontend/appends/footer.html'); ?>
+
+  </div>
+<script>
+function setTitleText(text){
+  document.getElementById("title").innerHTML = text;
+}
+function resetTitleText(){
+  google.script.run
+            .withSuccessHandler(setTitleText)
+            .withFailureHandler(toastKnownError)
+            .getProjectTitle();
+}
+function setTitleTextFinished(){
+  setTitleText("Finished")
+}
+  </script>
+
+</body>
+
+</html>

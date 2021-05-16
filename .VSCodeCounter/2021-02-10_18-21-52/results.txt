@@ -1,0 +1,87 @@
+Date : 2021-02-10 18:21:52
+Directory : /Users/sander/Desktop/TRS
+Total : 48 files,  3615 codes, 209 comments, 524 blanks, all 4348 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |         31 |      2,301 |        193 |        394 |      2,888 |
+| HTML       |         15 |      1,298 |         16 |        129 |      1,443 |
+| JSON       |          2 |         16 |          0 |          1 |         17 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                      | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                         |         48 |      3,615 |        209 |        524 |      4,348 |
+| backend                                                                                   |         24 |      2,037 |        161 |        350 |      2,548 |
+| backend/final                                                                             |          2 |        298 |         52 |         30 |        380 |
+| backend/general                                                                           |         10 |        796 |         32 |        140 |        968 |
+| backend/general/key_accessors                                                             |          6 |        418 |         13 |         85 |        516 |
+| backend/quasi-constants                                                                   |          2 |        188 |         14 |         59 |        261 |
+| backend/students                                                                          |          3 |        207 |         27 |         30 |        264 |
+| backend/teachers                                                                          |          3 |        301 |         24 |         38 |        363 |
+| development                                                                               |          6 |        263 |         32 |         42 |        337 |
+| frontend                                                                                  |         15 |      1,298 |         16 |        129 |      1,443 |
+| frontend/appends                                                                          |          2 |         55 |          3 |          3 |         61 |
+| frontend/sections                                                                         |          8 |        666 |          2 |         69 |        737 |
+| frontend/sections/final_subsections                                                       |          2 |        160 |          0 |         14 |        174 |
+| frontend/sections/updates                                                                 |          3 |         93 |          0 |          9 |        102 |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                  | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| /Users/sander/Desktop/TRS/.clasp.json                                                     | JSON       |          1 |          0 |          1 |          2 |
+| /Users/sander/Desktop/TRS/appscript.js                                                    | JavaScript |          1 |          0 |          2 |          3 |
+| /Users/sander/Desktop/TRS/appsscript.json                                                 | JSON       |         15 |          0 |          0 |         15 |
+| /Users/sander/Desktop/TRS/backend/doSetup.js                                              | JavaScript |         74 |          5 |         23 |        102 |
+| /Users/sander/Desktop/TRS/backend/exceptions.js                                           | JavaScript |         76 |          7 |         14 |         97 |
+| /Users/sander/Desktop/TRS/backend/final/runAlgorithm.js                                   | JavaScript |        215 |         49 |         22 |        286 |
+| /Users/sander/Desktop/TRS/backend/final/sendFinalEmails.js                                | JavaScript |         83 |          3 |          8 |         94 |
+| /Users/sander/Desktop/TRS/backend/general/data_accessors.js                               | JavaScript |         75 |          0 |          6 |         81 |
+| /Users/sander/Desktop/TRS/backend/general/helperScripts.js                                | JavaScript |        180 |          2 |         26 |        208 |
+| /Users/sander/Desktop/TRS/backend/general/key_accessors/files.js                          | JavaScript |        165 |          9 |         27 |        201 |
+| /Users/sander/Desktop/TRS/backend/general/key_accessors/final_section.js                  | JavaScript |         65 |          0 |         17 |         82 |
+| /Users/sander/Desktop/TRS/backend/general/key_accessors/general.js                        | JavaScript |         32 |          4 |          9 |         45 |
+| /Users/sander/Desktop/TRS/backend/general/key_accessors/results.js                        | JavaScript |         75 |          0 |         15 |         90 |
+| /Users/sander/Desktop/TRS/backend/general/key_accessors/students_sections.js              | JavaScript |         50 |          0 |          9 |         59 |
+| /Users/sander/Desktop/TRS/backend/general/key_accessors/teachers_section.js               | JavaScript |         31 |          0 |          8 |         39 |
+| /Users/sander/Desktop/TRS/backend/general/nameParsers.js                                  | JavaScript |         25 |         17 |          7 |         49 |
+| /Users/sander/Desktop/TRS/backend/general/sheetInfoUpdaters.js                            | JavaScript |         98 |          0 |         16 |        114 |
+| /Users/sander/Desktop/TRS/backend/quasi-constants/keys.js                                 | JavaScript |         29 |          9 |         15 |         53 |
+| /Users/sander/Desktop/TRS/backend/quasi-constants/text.js                                 | JavaScript |        159 |          5 |         44 |        208 |
+| /Users/sander/Desktop/TRS/backend/responses.js                                            | JavaScript |         36 |          0 |          5 |         41 |
+| /Users/sander/Desktop/TRS/backend/students/createStudentForm.js                           | JavaScript |         73 |         17 |         12 |        102 |
+| /Users/sander/Desktop/TRS/backend/students/helpers.js                                     | JavaScript |         79 |          8 |         11 |         98 |
+| /Users/sander/Desktop/TRS/backend/students/sendStudentEmails.js                           | JavaScript |         55 |          2 |          7 |         64 |
+| /Users/sander/Desktop/TRS/backend/surveys.js                                              | JavaScript |         61 |          0 |         11 |         72 |
+| /Users/sander/Desktop/TRS/backend/teachers/createTeacherForms.js                          | JavaScript |        133 |         14 |         21 |        168 |
+| /Users/sander/Desktop/TRS/backend/teachers/helpers.js                                     | JavaScript |         70 |         10 |          8 |         88 |
+| /Users/sander/Desktop/TRS/backend/teachers/sendTeacherEmails.js                           | JavaScript |         98 |          0 |          9 |        107 |
+| /Users/sander/Desktop/TRS/development/HTMLGenerators.js                                   | JavaScript |         63 |          1 |          7 |         71 |
+| /Users/sander/Desktop/TRS/development/bots.js                                             | JavaScript |         44 |          2 |          4 |         50 |
+| /Users/sander/Desktop/TRS/development/deprecated.js                                       | JavaScript |         71 |         25 |         12 |        108 |
+| /Users/sander/Desktop/TRS/development/developerFunctions.js                               | JavaScript |         27 |          4 |          5 |         36 |
+| /Users/sander/Desktop/TRS/development/generateNames.js                                    | JavaScript |         35 |          0 |         10 |         45 |
+| /Users/sander/Desktop/TRS/development/index.js                                            | JavaScript |         23 |          0 |          4 |         27 |
+| /Users/sander/Desktop/TRS/frontend/appends/footer.html                                    | HTML       |         44 |          0 |          1 |         45 |
+| /Users/sander/Desktop/TRS/frontend/appends/header.html                                    | HTML       |         11 |          3 |          2 |         16 |
+| /Users/sander/Desktop/TRS/frontend/confirm-and-load.html                                  | HTML       |         78 |          0 |         13 |         91 |
+| /Users/sander/Desktop/TRS/frontend/main.html                                              | HTML       |         82 |          1 |         14 |         97 |
+| /Users/sander/Desktop/TRS/frontend/sections/final_section.html                            | HTML       |         54 |          0 |          6 |         60 |
+| /Users/sander/Desktop/TRS/frontend/sections/final_subsections/final_students_section.html | HTML       |         81 |          0 |          6 |         87 |
+| /Users/sander/Desktop/TRS/frontend/sections/final_subsections/final_teachers_section.html | HTML       |         79 |          0 |          8 |         87 |
+| /Users/sander/Desktop/TRS/frontend/sections/students_section.html                         | HTML       |        182 |          1 |         19 |        202 |
+| /Users/sander/Desktop/TRS/frontend/sections/teachers_section.html                         | HTML       |        177 |          1 |         21 |        199 |
+| /Users/sander/Desktop/TRS/frontend/sections/updates/finalSectionUpdate.html               | HTML       |         42 |          0 |          5 |         47 |
+| /Users/sander/Desktop/TRS/frontend/sections/updates/studentsSectionUpdate.html            | HTML       |         24 |          0 |          2 |         26 |
+| /Users/sander/Desktop/TRS/frontend/sections/updates/teachersSectionUpdate.html            | HTML       |         27 |          0 |          2 |         29 |
+| /Users/sander/Desktop/TRS/frontend/settings.html                                          | HTML       |        269 |         10 |         13 |        292 |
+| /Users/sander/Desktop/TRS/frontend/setup.html                                             | HTML       |         68 |          0 |          5 |         73 |
+| /Users/sander/Desktop/TRS/frontend/style.html                                             | HTML       |         80 |          0 |         12 |         92 |
+| Total                                                                                     |            |      3,615 |        209 |        524 |      4,348 |
++-------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

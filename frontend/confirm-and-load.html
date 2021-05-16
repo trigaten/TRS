@@ -1,0 +1,91 @@
+<html>
+
+<div class="progress hide" id="progress">
+    <div class="indeterminate"></div>
+</div>
+
+
+<script>
+    function confirmExecution(func, msg) {
+        M.Toast.dismissAll();
+        var toastHTML = `<div class="row" id="confirm">
+            <div class="col" id="confirmMessage">`
+            + msg +
+            `</div>
+            <div class="col">
+                <button class="btn-flat toast-action teal-text" onclick='` + func.name + `();M.Toast.dismissAll()'>Yes</button>
+                <button class="btn-flat toast-action red-text" onclick="M.Toast.dismissAll();">No</button>
+            </div>
+        </div>`
+        M.toast({ html: toastHTML, displayLength: 50000 });
+    }
+
+    function showProgressBar() {
+        document.getElementById("progress").classList.remove("hide")
+    }
+
+    function hideProgressBar() {
+        document.getElementById("progress").classList.add("hide")
+    }
+
+    function toastUnknownError(error) {
+        M.toast({ html: 'Sorry, there was a problem. Try running again or contacting TeacherRecSystem@gmail.com' })
+        hideProgressBar();
+        google.script.run
+            .withSuccessHandler(setTitleText)
+            .withFailureHandler(toastKnownError)
+            .getProjectTitle();
+        google.script.run.logAction("ERROR: " + error)
+        google.script.run.notifyTRS(error)
+    }
+
+    function toastUnknownSetupError(error) {
+        M.toast({ html: 'Sorry, there was a problem. Try running again or contacting TeacherRecSystem@gmail.com', classes: "red black-text" })
+        document.getElementById("setup-title").innerText = "Welcome to TRS"
+        google.script.run.logAction("ERROR: " + error)
+        google.script.run.notifyTRS("ERROR: " + error)
+        document.getElementById("loading-circle").classList.add("hide")
+    }
+
+    function toastKnownError(error) {
+        M.toast({ html: 'Sorry, there was a problem: ' + error, classes: "red-text", displayLength: 10000 })
+    }
+
+    function toastSuccessWithMsg(msg) {
+        M.toast({ html: 'Success!: ' + msg, classes: "light-green-text text-accent-3", displayLength: 10000 })
+    }
+
+    function toastWarningWithMsg(msg) {
+        M.toast({ html: 'Warning: ' + msg, classes: "amber darken-2 black-text", displayLength: 10000 })
+    }
+
+    function toastNeutralWithMsg(msg) {
+        M.toast({ html: msg, displayLength: 10000 })
+    }
+
+    function toastResponseWithMsg(response) {
+        try {
+            let message = response.message;
+            switch (response.result) {
+                case "success":
+                    toastSuccessWithMsg(message)
+                    break;
+                case "warning":
+                    toastWarningWithMsg(message)
+                    break;
+                case "neutral":
+                    toastNeutralWithMsg(message)
+                    break;
+                case "failure":
+                    toastKnownError(message)
+                    break;
+                default:
+                    toastUnknownError(message)
+            }
+        } catch (e) {
+            toastUnknownError(e)
+        }
+    }
+</script>
+
+</html>

@@ -1,0 +1,26 @@
+<html>
+<script>
+
+    function doStudentsSectionUpdate(state) {
+        if (state > 1) {
+            document.getElementById("sEmailButton").classList.remove("disabled");
+            document.getElementById("sEmailButtonIcon").innerHTML = "email";
+            //change create_student_form to blue to show done
+            document.getElementById("create_student_form").className = "waves-effect waves-light btn-small blue lighten-2";
+            document.getElementById("s-createFormIcon").innerHTML = "check";
+            if (state > 2) {
+                //change create_student_form to blue to show done
+                document.getElementById("sEmailButton").className = "waves-effect waves-light btn-small blue lighten-2";
+                document.getElementById("sEmailButtonIcon").innerHTML = "check";
+                document.getElementById("sReminderEmailButton").classList.remove("disabled");
+            }
+        }
+        google.script.run.withSuccessHandler(setStudentMessageText).getStudentMessage();
+    }
+    function setStudentMessageText(msg) {
+        document.getElementById("s-textarea1").innerHTML = msg;
+        doStudentEditButtonUpdate()
+    }
+</script>
+
+</html>

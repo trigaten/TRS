@@ -1,0 +1,87 @@
+<html>
+<script>
+    function doFinalStudentEditButtonUpdate() {
+        if ($("#fs-textarea1").val() != "") {
+            document.getElementById("fs-edit-button").classList.add("blue");
+            document.getElementById("fs-edit-button").classList.add("lighten-2");
+            document.getElementById("fs-edit-button").classList.remove("green");
+            document.getElementById("fs-edit-button").classList.remove("darken-1");
+        } else {
+            document.getElementById("fs-edit-button").classList.remove("blue");
+            document.getElementById("fs-edit-button").classList.remove("lighten-2");
+            document.getElementById("fs-edit-button").classList.add("green");
+            document.getElementById("fs-edit-button").classList.add("darken-1");
+        }
+    }</script>
+<div class="center-align">
+    Students <br><br>
+    <a id="fs-edit-button" class="waves-effect waves-light btn-small green darken-1"
+        onclick="toggleFinalStudentTextInput()"><i class="material-icons right">email</i>EDIT</a>
+    <a id="fSEmailButton" class="waves-effect waves-light btn-small disabled green darken-1"
+        onclick="confirmSendFinalStudentEmails()"><i class="material-icons right">
+            <div id="fSEmailButtonIcon">lock_outline</div>
+        </i>SEND</a>
+
+    <div id="fs-message-info"><br>
+        <div class="input-field col s12">
+            <textarea id="fs-textarea1" class="materialize-textarea">Enter\nYour\nMessage\nHere</textarea>
+            <script>
+            </script>
+            <label for="fs-textarea1">Enter Message</label>
+        </div>
+    </div>
+</div>
+<script>
+    var final_student_messageInfoOpen = false;
+    google.script.run
+        .withSuccessHandler(doFinalSectionUpdate)
+        .withFailureHandler(toastUnknownError)
+        .getProgramState();
+    $('#fs-message-info').toggle(1);
+    function toggleFinalStudentTextInput() {
+
+        $('#fs-message-info').toggle(500);
+        const elem = document.getElementById("fs-edit-button");
+        //being closed
+        if (final_student_messageInfoOpen) {
+            google.script.run
+            .withFailureHandler(toastUnknownError)
+            .setFinalStudentMessage($("#fs-textarea1").val());
+            elem.innerHTML = `<i class="material-icons right">email</i>EDIT`;
+            elem.classList.remove("red");
+            doFinalStudentEditButtonUpdate();
+        } else {
+            elem.classList.remove("green"); elem.classList.remove("blue"); elem.classList.remove("darken-1");
+            elem.innerHTML = `SAVE`;
+            elem.classList.add("red");
+        }
+        final_student_messageInfoOpen = !final_student_messageInfoOpen;
+    }
+
+    //Handle SENDING final student emails
+    function confirmSendFinalStudentEmails() {
+        confirmExecution(sendFinalStudentEmails, "Are you sure you would like to send the final student emails?");
+    }
+
+    function sendFinalStudentEmails() {
+        setTitleText("Sending Final Student Emails")
+        showProgressBar();
+        google.script.run
+            .withSuccessHandler(handleFinalStudentEmailSendResult)
+            .withFailureHandler(toastUnknownError)
+            .sendFinalStudentEmails();
+    }
+
+    function handleFinalStudentEmailSendResult(response) {
+        setTitleTextFinished();
+        toastResponseWithMsg(response)
+        hideProgressBar();
+        google.script.run
+            .withSuccessHandler(doFinalSectionUpdate)
+            .withFailureHandler(toastUnknownError)
+            .getProgramState();
+        resetTitleText();
+    }
+</script>
+
+</html>

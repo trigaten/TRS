@@ -1,0 +1,60 @@
+<html>
+<ul class="collection">
+
+    <li class="collection-item">
+        <div class="center-align">
+            <a id="run_algorithm" class="waves-effect waves-light btn disabled green darken-1"
+                onclick="confirmRunAlgorithm()">Make Pairings</a>
+        </div>
+    </li>
+
+    <li class="collection-item">
+        <?!= includeIncluded("frontend/sections/final_subsections/final_students_section.html"); ?>
+    </li>
+    <li class="collection-item">
+        <?!= includeIncluded("frontend/sections/final_subsections/final_teachers_section.html"); ?>
+    </li>
+</ul>
+<script>
+    google.script.run
+        .withSuccessHandler(doFinalSectionUpdate)
+        .withFailureHandler(toastUnknownError)
+        .getProgramState();
+
+    //Handle SENDING final student emails
+    function confirmRunAlgorithm() {
+        confirmExecution(runAlgorithm, "Are you sure you would like to make the pairings?");
+    }
+
+    function runAlgorithm() {
+        showProgressBar();
+        setTitleText("Making Pairings")
+        google.script.run
+            .withSuccessHandler(handleRunAlgorithmResult)
+            .withFailureHandler(toastUnknownError)
+            .runAlgorithm();
+    }
+
+    function handleRunAlgorithmResult(response) {
+        toastResponseWithMsg(response)
+        hideProgressBar();
+        google.script.run
+            .withSuccessHandler(doFinalSectionUpdate)
+            .withFailureHandler(toastKnownError)
+            .getProgramState();
+        google.script.run
+            .withSuccessHandler(displayFinalStudentSheetId)
+            .withFailureHandler(toastUnknownError)
+            .getFinalStudentSheetId();
+        google.script.run
+            .withSuccessHandler(displayFinalTeacherSheetId)
+            .withFailureHandler(toastUnknownError)
+            .getFinalTeacherSheetId();
+        google.script.run
+            .withSuccessHandler(displayProgramState)
+            .withFailureHandler(toastUnknownError)
+            .getProgramState();
+    }
+</script>
+
+</html>

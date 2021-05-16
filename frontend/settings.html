@@ -1,0 +1,292 @@
+<html>
+<div class="container" id="settings">
+    <div class="row">
+        <div class="col s12">
+            <h5>Settings:</h5>
+            Here are the ids of the sheets in this system. Change only if needed. <br>
+            <div class="row">
+
+                <!-- Project State -->
+                <div class="input-field col s12">
+                    <input placeholder="Project State" id="ProgramState" type="text" 
+                        onchange="google.script.run
+                        .withSuccessHandler(doAllUpdate())
+                        .withFailureHandler(toastUnknownError)
+                        .setProgramState(document.getElementById('ProgramState').value)">
+                    <label for="ProgramState">Project State</label>
+                </div>
+                <script>
+                    function doAllUpdate(val) {
+                        google.script.run
+                            .withSuccessHandler(doFinalSectionUpdate)
+                            .withFailureHandler(toastUnknownError)
+                            .getProgramState();
+                        google.script.run
+                            .withSuccessHandler(doStudentsSectionUpdate)
+                            .withFailureHandler(toastUnknownError)
+                            .getProgramState();
+                        google.script.run
+                            .withSuccessHandler(doTeachersSectionUpdate)
+                            .withFailureHandler(toastUnknownError)
+                            .getProgramState();
+                    }
+                    google.script.run
+                        .withSuccessHandler(displayProgramState)
+                        .withFailureHandler(toastUnknownError)
+                        .getProgramState();
+                    function displayProgramState(id) {
+                        document.getElementById("ProgramState").value = id;
+                    }
+                </script>
+                <!-- Main Project Folder -->
+                <div class="input-field col s12">
+                    <input placeholder="Main Project Folder Id" id="ProjectFolderId" type="text"
+                        onchange="google.script.run.withFailureHandler(toastUnknownError).setProjectFolderId(document.getElementById('ProjectFolderId').value)">
+                    <label for="ProjectFolderId">Main Project Folder Id</label>
+                </div>
+                <script>
+                    google.script.run
+                        .withSuccessHandler(displayProjectFolderId)
+                        .withFailureHandler(toastUnknownError)
+                        .getProjectFolderId();
+                    function displayProjectFolderId(id) {
+                        document.getElementById("ProjectFolderId").value = id;
+                    }
+                </script>
+                <!-- Home Sheet -->
+                <div class="input-field col s12">
+                    <input placeholder="Home Sheet Id" id="HomeSheetId" type="text"
+                        onchange="google.script.run.withFailureHandler(toastUnknownError).setHomeSheetId(document.getElementById('HomeSheetId').value)">
+                    <label for="HomeSheetId">Home Sheet Id</label>
+                </div>
+                <script>
+                    google.script.run
+                        .withSuccessHandler(displayHomeSheetId)
+                        .withFailureHandler(toastUnknownError)
+                        .getHomeSheetId();
+                    function displayHomeSheetId(id) {
+                        document.getElementById("HomeSheetId").value = id;
+                    }
+                </script>
+                <!-- Student Sheet -->
+                <div class="input-field col s12">
+                    <input placeholder="Student Sheet Id" id="StudentSheetId" type="text"
+                        onchange="google.script.run.withFailureHandler(toastUnknownError).setStudentSheetId(document.getElementById('StudentSheetId').value)">
+                    <label for="StudentSheetId">Student Sheet Id</label>
+                </div>
+                <script>
+                    google.script.run
+                        .withSuccessHandler(displayStudentSheetId)
+                        .withFailureHandler(toastUnknownError)
+                        .getStudentSheetId();
+                    function displayStudentSheetId(id) {
+                        document.getElementById("StudentSheetId").value = id;
+                    }
+                </script>
+                <!-- Teacher Sheet -->
+                <div class="input-field col s12">
+                    <input placeholder="Teacher Sheet Id" id="TeacherSheetId" type="text"
+                        onchange="google.script.run.withFailureHandler(toastUnknownError).setTeacherSheetId(document.getElementById('TeacherSheetId').value)">
+                    <label for="TeacherSheetId">Teacher Sheet Id</label>
+                </div>
+                <script>
+                    google.script.run
+                        .withSuccessHandler(displayTeacherSheetId)
+                        .withFailureHandler(toastUnknownError)
+                        .getTeacherSheetId();
+                    function displayTeacherSheetId(id) {
+                        document.getElementById("TeacherSheetId").value = id;
+                    }
+                </script>
+                <!-- Student Form -->
+                <div class="input-field col s12">
+                    <input placeholder="Student Form Id" id="StudentFormId" type="text"
+                        onchange="google.script.run.withFailureHandler(toastUnknownError).setStudentFormId(document.getElementById('StudentFormId').value)">
+                    <label for="StudentFormId">Student Form Id</label>
+                </div>
+                <script>
+                    google.script.run
+                        .withSuccessHandler(displayStudentFormId)
+                        .withFailureHandler(toastUnknownError)
+                        .getStudentFormId();
+                    function displayStudentFormId(id) {
+                        document.getElementById("StudentFormId").value = id;
+                    }
+                </script>
+                <!-- Student Form Data Sheet -->
+                <div class="input-field col s12">
+                    <input placeholder="Student Form Data Sheet Id" id="StudentDataSheetId" type="text"
+                        onchange="google.script.run.withFailureHandler(toastUnknownError).setStudentDataSheetId(document.getElementById('StudentDataSheetId').value)">
+                    <label for="StudentDataSheetId">Student Form Data Sheet Id</label>
+                </div>
+                <script>
+                    google.script.run
+                        .withSuccessHandler(displayStudentDataSheetId)
+                        .withFailureHandler(toastUnknownError)
+                        .getStudentDataSheetId();
+                    function displayStudentDataSheetId(id) {
+                        document.getElementById("StudentDataSheetId").value = id;
+                    }
+                </script>
+                <!-- Teacher Forms Folder -->
+                <div class="input-field col s12">
+                    <input placeholder="Teacher Forms Folder Id" id="TeacherFormsFolderId" type="text"
+                        onchange="google.script.run.withFailureHandler(toastUnknownError).setTeacherFormsFolderId(document.getElementById('TeacherFormsFolderId').value)">
+                    <label for="TeacherFormsFolderId">Teacher Forms Folder Id</label>
+                </div>
+                <script>
+                    google.script.run
+                        .withSuccessHandler(displayTeacherFormsFolderId)
+                        .withFailureHandler(toastUnknownError)
+                        .getTeacherFormsFolderId();
+                    function displayTeacherFormsFolderId(id) {
+                        document.getElementById("TeacherFormsFolderId").value = id;
+                    }
+                </script>
+                <!-- Student Results Sheet -->
+                <div class="input-field col s12">
+                    <input placeholder="Student Results Sheet Id" id="FinalStudentSheetId" type="text"
+                        onchange="google.script.run.withFailureHandler(toastUnknownError).setFinalStudentSheetId(document.getElementById('FinalStudentSheetId').value)">
+                    <label for="FinalStudentSheetId">Student Results Sheet Id</label>
+                </div>
+                <script>
+                    google.script.run
+                        .withSuccessHandler(displayFinalStudentSheetId)
+                        .withFailureHandler(toastUnknownError)
+                        .getFinalStudentSheetId();
+                    function displayFinalStudentSheetId(id) {
+                        document.getElementById("FinalStudentSheetId").value = id;
+                    }
+                </script>
+                <!-- Teacher Results Sheet -->
+                <div class="input-field col s12">
+                    <input placeholder="Teacher Results Sheet Id" id="FinalTeacherSheetId" type="text"
+                        onchange="google.script.run.withFailureHandler(toastUnknownError).setFinalTeacherSheetId(document.getElementById('FinalTeacherSheetId').value)">
+                    <label for="FinalTeacherSheetId">Teacher Results Sheet Id</label>
+                </div>
+                <script>
+                    google.script.run
+                        .withSuccessHandler(displayFinalTeacherSheetId)
+                        .withFailureHandler(toastUnknownError)
+                        .getFinalTeacherSheetId();
+                    function displayFinalTeacherSheetId(id) {
+                        document.getElementById("FinalTeacherSheetId").value = id;
+                    }
+                </script>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <h5>Surveys and Results</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <a id="create-surveys-button" class="waves-effect waves-light btn-small green darken-1"
+                onclick="confirmCreateSurveys()"><i class="material-icons right">rate_review</i>Create Surveys</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <a id="send-surveys-button" class="waves-effect waves-light btn-small green darken-1"
+                onclick="confirmSendSurveys()"><i class="material-icons right">email</i>Send Surveys</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <a id="send-results-button" class="waves-effect waves-light btn-small green darken-1"
+                onclick="confirmSendResults()"><i class="material-icons right">email</i>Send Results</a>
+        </div>
+    </div>
+</div>
+<script>
+    function confirmCreateSurveys() {
+        confirmExecution(createSurveys, "Are you sure you would like to create the student surveys?");
+    }
+
+    function createSurveys() {
+        showProgressBar();
+        setTitleText("Creating Surveys")
+        google.script.run
+            .withSuccessHandler(handleCreateSurveysResult)
+            .withFailureHandler(toastUnknownError)
+            .createSurveys();
+    }
+
+    function handleCreateSurveysResult(response) {
+        setTitleTextFinished();
+        toastResponseWithMsg(response)
+        hideProgressBar();
+        resetTitleText();
+        doSettingsUpdate();
+    }
+    function confirmSendSurveys() {
+        confirmExecution(sendSurveys, "Are you sure you would like to send the student surveys?");
+    }
+
+    function sendSurveys() {
+        setTitleText("Sending Surveys");
+        showProgressBar();
+        google.script.run
+            .withSuccessHandler(handleSendSurveysResult)
+            .withFailureHandler(toastUnknownError)
+            .sendSurveys();
+    }
+
+    function handleSendSurveysResult(response) {
+        setTitleTextFinished();
+        toastResponseWithMsg(response)
+        hideProgressBar();
+        resetTitleText();
+        doSettingsUpdate();
+    }
+
+    function confirmSendResults() {
+        confirmExecution(sendResults, "Are you sure you would like to send the results to TRS? This action will share the results of the surveys and send the number of students who got their first choice, second choice, etc. NO names, specific information, or private information is shared.");
+    }
+
+    function sendResults() {
+        setTitleText("Sending Results to TRS")
+        showProgressBar();
+        google.script.run
+            .withSuccessHandler(handleSendResultsResult)
+            .withFailureHandler(toastUnknownError)
+            .sendResultsToTRS();
+    }
+
+    function handleSendResultsResult(response) {
+        setTitleTextFinished()
+        toastResponseWithMsg(response)
+        hideProgressBar();
+        resetTitleText()
+        doSettingsUpdate();
+    }
+
+
+    function doSettingsUpdate() {
+        google.script.run.withSuccessHandler(showSurveysCreated).surveysCreated()
+        function showSurveysCreated(bool) {
+            if (bool) {
+                document.getElementById("create-surveys-button").className = "waves-effect waves-light btn-small blue lighten-2";
+            }
+        }
+        google.script.run.withSuccessHandler(showSurveysSent).surveysSent()
+        function showSurveysSent(bool) {
+            if (bool) {
+                document.getElementById("send-surveys-button").className = "waves-effect waves-light btn-small blue lighten-2";
+            }
+        }
+        google.script.run.withSuccessHandler(showResultsSent).resultsSent()
+        function showResultsSent(bool) {
+            if (bool) {
+                document.getElementById("send-results-button").className = "waves-effect waves-light btn-small blue lighten-2";
+            }
+        }
+
+    }
+    doSettingsUpdate();
+</script>
+
+</html>

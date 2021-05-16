@@ -1,0 +1,47 @@
+<html>
+<script>
+    function doFinalSectionUpdate(state) {
+        if (state >= 5) {
+            document.getElementById("run_algorithm").className = "waves-effect waves-light btn-small green darken-1";
+            if (state >= 6) {
+                document.getElementById("run_algorithm").className = "waves-effect waves-light btn-small blue lighten-2";
+                document.getElementById("fTEmailButtonIcon").innerHTML = "email";
+                document.getElementById("fSEmailButtonIcon").innerHTML = "email";
+                google.script.run.withSuccessHandler(setFinalStudentEmailsHTML).finalStudentEmailsSent()
+
+                function setFinalStudentEmailsHTML(bool) {
+                    if (bool) {
+                        document.getElementById("fSEmailButton").className = "waves-effect waves-light btn-small blue lighten-2";
+                    } else {
+                        document.getElementById("fSEmailButton").className = "waves-effect waves-light btn-small green darken-1";
+                    }
+                }
+
+                google.script.run
+                    .withSuccessHandler(setFinalTeacherEmailsHTML)
+                    .finalTeacherEmailsSent()
+                function setFinalTeacherEmailsHTML(bool) {
+                    if (bool) {
+                        document.getElementById("fTEmailButton").className = "waves-effect waves-light btn-small blue lighten-2";
+                    } else {
+                        document.getElementById("fTEmailButton").className = "waves-effect waves-light btn-small green darken-1";
+                    }
+                }
+
+            }
+        }
+        google.script.run.withSuccessHandler(setFinalStudentMessageText).getFinalStudentMessage();
+        google.script.run.withSuccessHandler(setFinalTeacherMessageText).getFinalTeacherMessage();
+    }
+    function setFinalStudentMessageText(msg) {
+        document.getElementById("fs-textarea1").innerHTML = msg;
+        doFinalStudentEditButtonUpdate();
+    }
+    function setFinalTeacherMessageText(msg) {
+        document.getElementById("ft-textarea1").innerHTML = msg;
+        doFinalTeacherEditButtonUpdate();
+    }
+
+</script>
+
+</html>
