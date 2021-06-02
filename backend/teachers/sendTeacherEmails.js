@@ -46,7 +46,7 @@ function emailTeacherForm(teacherName, teacherEmail, formLink) {
 }
 
 function emailTeacherNoForm(teacherName, teacherEmail) {
-    var msg = getTeacherEmailNoFormText(teacherName, formLink)
+    var msg = getTeacherEmailNoFormText(teacherName)
     GmailApp.sendEmail(teacherEmail, "Student Rec Form", "", { htmlBody: msg });
 }
 
