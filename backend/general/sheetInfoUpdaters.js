@@ -14,27 +14,27 @@ function setNextStep(step) {
   } catch (e) {
     return handleException(e, sheetNotFoundException)
   }
-  try{
+  try {
     let stepCell = homeSheet.getRange(5, 3);
     stepCell.setValue(stepDict[step])
     homeSheet.autoResizeColumn(3)
-  }catch(e){}
+  } catch (e) { }
 }
 
 function logAction(action) {
   let homeSheet;
   try {
     homeSheet = getHomeSheet();
-    
+
   } catch (e) {
     return handleException(e, sheetNotFoundException)
   }
-  try{
+  try {
     let logCell = homeSheet.getRange(getLogStep() + 6, 1);
     logCell.setValue(action);
     homeSheet.autoResizeColumn(1);
     incrementLogStep();
-  }catch(e){}
+  } catch (e) { }
 }
 
 function updateStudentsDoneList(e) {
@@ -78,7 +78,7 @@ function updateStudentsDoneList(e) {
 
 function updateTeachersDoneList(e) {
   let teacherEmail = e.response.getRespondentEmail()
-  let numOfTeachers = getTeacherNames().length;
+  let numOfTeachers = countTeacherForms();
 
   let teacherSheet;
   try {
@@ -86,7 +86,7 @@ function updateTeachersDoneList(e) {
   } catch (error) {
     return handleException(error, sheetNotFoundException)
   }
-  
+
   let teacherEmailCols = teacherSheet.getRange("B6:B").getValues();
   let doneCols = teacherSheet.getRange("C6:C").getValues();
 
@@ -105,7 +105,84 @@ function updateTeachersDoneList(e) {
   }
 
   teacherSheet.getRange(5, 4).setValue(totalDone + "/" + numOfTeachers);
-  if (totalDone >= numOfTeachers) {
+  if (totalDone >= countTeacherForms()) {
+    teacherSheet.getRange(5, 4).setBackground("green");
+    notifyEditors("Teacher form responses all recorded.")
+  }
+}
+
+function countTeacherForms() {
+  let tFF;
+  try {
+    tFF = getTeacherFormsFolder();
+  } catch (e) {
+    return 0;
+  }
+
+  let files = tFF.getFilesByType(MimeType.GOOGLE_FORMS);
+  let count = 0;
+  while (files.hasNext()) {
+    files.next();
+    count += 1;
+  }
+
+  return count;
+}
+
+function betaUpdateTeachersDoneList() {
+  let done = 0;
+  let tFF;
+  try {
+    tFF = getTeacherFormsFolder();
+  } catch (e) {
+    return handleException(e, folderNotFoundException);
+  }
+
+  let teacherSheet;
+  try {
+    teacherSheet = getTeacherSheet();
+  } catch (e) {
+    return handleException(e, sheetNotFoundException)
+  }
+
+  //index at which names start
+  const startIndex = 5
+
+  var teacherNameCol = teacherSheet.getRange("A1:A").getValues().slice(startIndex);
+  var responseRecordedColVals = teacherSheet.getRange("C1:C").getValues().slice(startIndex);
+
+  // reduce dimensionality
+  for (var x = 0; x < teacherNameCol.length; x++) {
+    teacherNameCol[x] = teacherNameCol[x][0];
+    responseRecordedColVals[x] = responseRecordedColVals[x][0];
+  }
+
+  for (x = 0; x < teacherNameCol.length; x++) {
+    if (teacherNameCol[x] == ""){
+      continue;
+    }
+    // if no info on whether response recorded in sheet
+    if (responseRecordedColVals[x] != "Yes") {
+      if (responseRecordedColVals[x] != "NA") {
+        let files = tFF.getFilesByName(getTeacherFormName(teacherNameCol[x]));
+        if (files.hasNext()) {
+          // if there is a response
+          if (FormApp.openById(files.next().getId()).getResponses()[0] != null) {
+            teacherSheet.getRange(x + 6, 3).setValue("Yes");
+            done++;
+          }
+        } else {
+          // fill in as NA because this teacher doesn't have a form
+          teacherSheet.getRange(x + 6, 3).setValue("NA");
+        }
+      }
+    } else {
+      done++;
+    }
+  }
+
+  teacherSheet.getRange(5, 4).setValue(done + "/" + countTeacherForms());
+  if (done >= countTeacherForms()) {
     teacherSheet.getRange(5, 4).setBackground("green");
     notifyEditors("Teacher form responses all recorded.")
   }

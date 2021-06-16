@@ -46,3 +46,18 @@ all file/folder accessors may return exceptions.
 otherwise return response objects
 
 onEdit cell expander for emails?
+
+
+
+
+Enter message here showing up
+
+
+Saying wrong number of teacher forms created when not all teachers are supposed to do forms
+
+
+
+handle crazy error when user signed in with mult accounts
+
+
+Teacher forms not being closed after algo run
