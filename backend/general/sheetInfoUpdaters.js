@@ -188,3 +188,63 @@ function betaUpdateTeachersDoneList() {
   }
 }
 
+
+function betaUpdateTeachersDoneList() {
+  let done = 0;
+  let tFF;
+  try {
+    tFF = getTeacherFormsFolder();
+  } catch (e) {
+    return handleException(e, folderNotFoundException);
+  }
+
+  let teacherSheet;
+  try {
+    teacherSheet = getTeacherSheet();
+  } catch (e) {
+    return handleException(e, sheetNotFoundException)
+  }
+
+  //index at which names start
+  const startIndex = 5
+
+  var teacherNameCol = teacherSheet.getRange("A1:A").getValues().slice(startIndex);
+  var responseRecordedColVals = teacherSheet.getRange("C1:C").getValues().slice(startIndex);
+
+  // reduce dimensionality
+  for (var x = 0; x < teacherNameCol.length; x++) {
+    teacherNameCol[x] = teacherNameCol[x][0];
+    responseRecordedColVals[x] = responseRecordedColVals[x][0];
+  }
+
+  for (x = 0; x < teacherNameCol.length; x++) {
+    if (teacherNameCol[x] == ""){
+      continue;
+    }
+    // if no info on whether response recorded in sheet
+    if (responseRecordedColVals[x] != "Yes") {
+      if (responseRecordedColVals[x] != "NA") {
+        let files = tFF.getFilesByName(getTeacherFormName(teacherNameCol[x]));
+        if (files.hasNext()) {
+          // if there is a response
+          if (FormApp.openById(files.next().getId()).getResponses()[0] != null) {
+            teacherSheet.getRange(x + 6, 3).setValue("Yes");
+            done++;
+          }
+        } else {
+          // fill in as NA because this teacher doesn't have a form
+          teacherSheet.getRange(x + 6, 3).setValue("NA");
+        }
+      }
+    } else {
+      done++;
+    }
+  }
+
+  teacherSheet.getRange(5, 4).setValue(done + "/" + countTeacherForms());
+  if (done >= countTeacherForms()) {
+    teacherSheet.getRange(5, 4).setBackground("green");
+    notifyEditors("Teacher form responses all recorded.")
+  }
+}
+

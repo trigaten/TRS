@@ -9,7 +9,7 @@ Flow:
 
 **/
 
-function runAlgorithm() {
+function runAlgorithm(repeatTeacherBonus = false) {
   try {
     validateCurrentUser()
   } catch (e) {
@@ -98,6 +98,9 @@ function runAlgorithm() {
         } else {
           score = 10 * Trank2 * (pairTotalNum - (c - 3) / 2);
         }
+      }
+      if (repeatTeacherBonus){
+        
       }
       scores.set(position, score);
     }
@@ -195,6 +198,10 @@ function getTeacherDataDict() {
   return teacherToData;
 }
 
+function applyRepeatTeacherBonus(){
+  
+}
+
 /**generates final sheets in main SS with all the info - within this are 2 sheets - one with students and their two teachers and another with teachers and their lists of students**/
 function generateSheets(studentToTeachers, teacherToStudents, groupToTeachersRank) {
   let teacherSheet = createSheet("Teacher Results");
@@ -246,6 +253,7 @@ function generateSheets(studentToTeachers, teacherToStudents, groupToTeachersRan
     }
   }
 }
+
 
 function getTeacherLimits() {
   let teacherLimits = {};

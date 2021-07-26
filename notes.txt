@@ -61,3 +61,7 @@ handle crazy error when user signed in with mult accounts
 
 
 Teacher forms not being closed after algo run
+
+check teacher 0 rly means impossible
+
+flipname breaks with long last names with multiple spaces
