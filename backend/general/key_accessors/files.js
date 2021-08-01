@@ -5,8 +5,7 @@
 function getTeacherSheet() {
     try {
         let teacherSheetId = getTeacherSheetId();
-        let teacherSheet = getSheetById(teacherSheetId);
-        return teacherSheet;
+        return getSheetById(teacherSheetId);
     } catch (e) {
         throw new sheetNotFoundException("Teachers sheet not found.")
     }
@@ -33,8 +32,7 @@ function getStudentSheet() {
     let scriptProperties = PropertiesService.getDocumentProperties();
     try {
         let studentSheetId = scriptProperties.getProperty(STUDENTSHEETIDKEY);
-        let studentSheet = getSheetById(studentSheetId);
-        return studentSheet;
+        return getSheetById(studentSheetId);
     } catch (e) {
         throw new sheetNotFoundException("Students sheet not found.")
     }
@@ -59,8 +57,7 @@ function setStudentSheetId(id) {
 */
 function getStudentForm() {
     try {
-        let studentSheetForm = FormApp.openById(getStudentFormId());
-        return studentSheetForm;
+        return FormApp.openById(getStudentFormId());
     } catch (e) {
         throw new formNotFoundException("Student form not found.");
     }
@@ -106,8 +103,7 @@ function getProjectFolder() {
 
 function getTeacherFormsFolder() {
     try {
-        let folder = DriveApp.getFolderById(getTeacherFormsFolderId());
-        return folder;
+        return DriveApp.getFolderById(getTeacherFormsFolderId());
     } catch (e) {
         throw new folderNotFoundException("Teacher forms folder not found.");
     }

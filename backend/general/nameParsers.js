@@ -27,9 +27,7 @@ function getFirstName(name) {
   let indexOfComma = trimmedName.indexOf(',');
   
   //+2 because substring is inclusive for first index given and need to get past comma and space
-  let firstName = trimmedName.substring(indexOfComma+2, trimmedName.length);
-  
-  return firstName;
+  return trimmedName.substring(indexOfComma+2, trimmedName.length);
 }
 
 /**takes 'lastname firstname' format a returns 'firstname'**/
