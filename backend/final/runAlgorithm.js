@@ -9,153 +9,264 @@ Flow:
 
 **/
 
-function runAlgorithm(repeatTeacherBonus = false) {
-  try {
-    validateCurrentUser()
-  } catch (e) {
-    return handleException(e, UnauthorizedUserException)
-  }
-  if (testForRepeatedNames()) {
-    return new FailureResponse("There is a repeated student name. Please fix this.")
-  }
-  //maps from student name to array of 2 teacher recommenders
-  let studentToTeachers = {};
-  //maps from teacher name to the teacher's students
-  let teacherToStudents = {};
-  //maps from student, teacher1, teacher2 to teacher1, 2 rank
-  let groupToTeachersRank = {};
-  let teachers = getTeacherNames();
-  if (isResponse(teachers)) {
-    return teachers;
-  }
-  for (var index in teachers) {
-    let teacher = teachers[index];
-    teacherToStudents[teacher] = [];
-  }
-  teacherToStudents[getOtherName()] = [];
-  //maps from teacher name to how many more students they can take
-  let teacherLimits = getTeacherLimits();
-  //maps from [r, c] pair to score 
-  let scores = new Map();
 
-  //dictionary of dictionaries
-  //teacherData[SOMETEACHERNAME] gives a dictionary of student names to that teacher's score of the student
-  let teacherData = getTeacherDataDict();
-  if (isResponse(teacherData)) {
-    return teacherData;
+class Node {
+  constructor(studentName, t1Name, t2Name, score, studentPreference) {
+    this.next = null;
+    this.studentName = studentName;
+    this.t1Name = t1Name
+    this.t2Name = t2Name;
+    this.score = score;
+    this.studentPreference = studentPreference;
   }
+}
+
+class LinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  isEmpty() {
+    if (this.head == null) {
+      return true;
+    }
+  }
+
+  push(node) {
+    if (this.head == null) {
+      this.head = node;
+      return;
+    }
+    // set current to last node in list
+    let current = this.head;
+    while (current.next != null) {
+      current = current.next;
+    }
+    current.next = node;
+  }
+
+  pop() {
+    if (this.head == null) { return; }
+    let highestScore = this.head.score;
+    let beforeHighest = null;
+    let beforeCurrent = this.head;
+    let current = this.head.next;
+
+    while (current != null) {
+      if (current.score > highestScore) {
+        highestScore = current.score;
+        beforeHighest = beforeCurrent;
+      }
+      beforeCurrent = current;
+      current = current.next;
+
+    }
+
+    let highestNode;
+    if (beforeHighest == null) {
+      highestNode = this.head;
+    } else {
+      highestNode = beforeHighest.next;
+    }
+
+    if (beforeHighest == null) {
+      this.head = this.head.next;
+    } else {
+      beforeHighest.next = beforeHighest.next.next;
+    }
+
+    return highestNode;
+  }
+}
+
+
+function runAlgorithmLL() {
+  //get student data
   let studentData = getStudentData();
   if (isResponse(studentData)) {
     return studentData;
   }
+  //get teachers names
+  let teacherNames = getTeacherNames();
+  //get student names
+  let studentNames = getStudentNames();
+  //get teachers scoring of students
+  let teacherDataDict = getTeacherDataDict();
+
+  /**
+   * CREATE unordered linked list
+   */
+
+  //linked list
+  let nodeList = new LinkedList();
   for (var r = 1; r < studentData.length; r++) {
     //where the student name is stored
-    let currentStudent = studentData[r][2];
+    let student = studentData[r][2];
     for (var c = 3; c < studentData[0].length; c += 2) {
-
       let position = [r, c];
       //String names
       let teacher1Name = studentData[r][c];
       let teacher2Name = studentData[r][c + 1];
-      if (groupToTeachersRank[currentStudent + teacher1Name + teacher2Name] == null) {
-        groupToTeachersRank[currentStudent + teacher1Name + teacher2Name] = (c - 1) / 2;
-      }
-      let teacher1 = teacherData[teacher1Name];
-      let teacher2 = teacherData[teacher2Name];
+      // get teacher data dictionaries
+      let teacher1 = teacherDataDict[teacher1Name];
+      let teacher2 = teacherDataDict[teacher2Name];
       //-3 because getting rid of first 3 non-data columns -- is how many pairs there are total
       let pairTotalNum = (studentData[0].length - 3) / 2
       let score = 0;
-      //IF there is a double usage of a teacher
-      if (teacher1Name == teacher2Name) {
-        //if both are other
-        if (teacher1Name == getOtherName()) {
-          score = 20 * (pairTotalNum - (c - 3) / 2);
+      // if there is an other
+      if (teacher1Name == getOtherName() || teacher2Name == getOtherName()) {
+        if (teacher1Name == teacher2Name) {
+          // if both other
+          score = 10 * 10;
         } else {
-          //same teacher so
-          var Trank1 = teacher1[getNameOfSecondInstanceOfStudent(currentStudent)];
-          var Trank2 = teacher1[currentStudent];
-          //(pairTotalNum - (c-3)/2) gives essentially the opposite of position -- so if the location is the 4th pair choice it will be 2 bc 6-4=2
-          score = Trank1 * Trank2 * (pairTotalNum - (c - 3) / 2);
-        }
-      } else {
-        //if teachers are different
-        try {
-          Trank1 = teacher1[currentStudent];
-        } catch (e) {
-          Trank1 = 10
-        }
-        try {
-          Trank2 = teacher2[currentStudent];
-        } catch (e) {
-          Trank2 = 10
-        }
-        if (teacher1Name == getOtherName()) {
-          //(pairTotalNum - (c-3)/2) gives essentially the opposite of position -- so if the location is the 4th pair choice it will be 2 bc 6-4=2
-          score = Trank2 * Trank2 * (pairTotalNum - (c - 3) / 2);
-        } else if (teacher2Name == getOtherName()) {
-          //since second is other, double count first
-          score = 10 * Trank1 * (pairTotalNum - (c - 3) / 2);
-        } else {
-          score = 10 * Trank2 * (pairTotalNum - (c - 3) / 2);
+          //if first teacher is other
+          if (teacher1Name == getOtherName()) {
+            score = 10 * parseInt(teacherDataDict[teacher2Name][student])
+            if (parseInt(teacherDataDict[teacher2Name][student]) == 0) {
+              score = 0;
+            }
+          }
+          //if second teacher is other
+          else {
+            score = 10 * parseInt(teacherDataDict[teacher1Name][student])
+            if (parseInt(teacherDataDict[teacher1Name][student]) == 0) {
+              score = 0;
+            }
+          }
         }
       }
-      if (repeatTeacherBonus){
-        
+      // both options are teacher names
+      else {
+        //both teachers are the same
+        if (teacher1Name == teacher2Name) {
+          score = parseInt(teacherDataDict[teacher1Name][student]) * parseInt(teacherDataDict[teacher1Name][getNameOfSecondInstanceOfStudent(currentStudent)])
+          if (parseInt(teacherDataDict[teacher1Name][student]) == 0 || parseInt(teacherDataDict[teacher1Name][getNameOfSecondInstanceOfStudent(currentStudent)]) == 0) {
+            score = 0;
+          }
+        }
+        //both teachers are different
+        else {
+          score = parseInt(teacherDataDict[teacher1Name][student]) * parseInt(teacherDataDict[teacher2Name][student])
+          if (parseInt(teacherDataDict[teacher1Name][student]) == 0 || parseInt(teacherDataDict[teacher2Name][student]) == 0) {
+            score = 0;
+          }
+        }
       }
-      scores.set(position, score);
+      // if (score > 30){
+      //   score-=30
+      // }
+      // 21
+      // score *= 7*(pairTotalNum - (c - 3) / 2)//24-c//(pairTotalNum - (c - 3) / 2); 
+      if (score != 0) {
+        score *= (pairTotalNum - (c - 3) / 2)
+        // apply bonuses
+        let bonus = Math.max(getBonus(studentData, r, teacher1Name), getBonus(studentData, r, teacher2Name));
+        if (bonus > 0) {
+          score *= 2
+        }
+      }
+
+      let node = new Node(student, teacher1Name, teacher2Name, score, (c - 3) / 2);
+      nodeList.push(node);
     }
   }
+  /** GO THROUGH LL */
+  let studentsWithPair = 0;
 
-  //while there are still items left in the array
-  while (scores.size > 0) {
-    //Looping continuously to find highest scores
-    let maxScore = -1;
-    //initialize to values outside domain/range of data array
-    let maxPos = [-1, -1];
-    scores.forEach((score, position) => {
-      score = scores.get(position);
-      if (score > maxScore) {
-        maxScore = score;
-        maxPos = position;
-      }
-    })
+  let teacherToStudents = {};
+  //maps from student name to array of 2 teacher recommenders
+  let studentToTeachers = {};
+  //maps from student, teacher1, teacher2 to teacher1, 2 rank
+  let groupToTeachersRank = {};
 
-    //maxPos is a [r, c] array where r and c are ints so just take its first value to get row
-    var row = maxPos[0];
-    var column = maxPos[1];
-    //col 2 is where student name is stored
-    let student = studentData[row][2];
-    //make sure student hasn't already been assigned any teachers
-    if (studentToTeachers[student] == null) {
-      let teacher1Name = studentData[row][column];
-      let teacher2Name = studentData[row][column + 1];
-      //if the student chose the same teacher for this pair
-      if (teacher1Name == teacher2Name) {
-        if (teacherLimits[teacher1Name] >= 2) {
-          teacherLimits[teacher1Name] -= 2;
-          studentToTeachers[student] = [teacher1Name, teacher1Name];
-          teacherToStudents[teacher1Name].push(student);
-          teacherToStudents[teacher2Name].push(student);
-        }
-      } else {
-        if (teacherLimits[teacher1Name] >= 1 && teacherLimits[teacher2Name] >= 1) {
-          teacherLimits[teacher1Name] -= 1;
-          teacherLimits[teacher2Name] -= 1;
-          studentToTeachers[student] = [teacher1Name, teacher2Name];
-          teacherToStudents[teacher1Name].push(student);
-          teacherToStudents[teacher2Name].push(student);
+  let teachers = getTeacherNames();
+  // set up storage array
+  for (var teacher of teachers) {
+    teacherToStudents[teacher] = [];
+  }
+  teacherToStudents[getOtherName()] = [];
+
+  let teacherLimits = getTeacherLimits()
+
+  while (nodeList.isEmpty() != true) {
+    let node = nodeList.pop();
+    if (typeof groupToTeachersRank[node.studentName + node.t1Name + node.t2Name] == "undefined") {
+      if (studentToTeachers[node.studentName] == null && node.score > 0) {
+        if (teacherLimits[node.t1Name] > 0 && teacherLimits[node.t2Name] > 0) {
+          teacherToStudents[node.t1Name].push(node.studentName);
+          teacherToStudents[node.t2Name].push(node.studentName);
+          studentToTeachers[node.studentName] = [node.t1Name, node.t2Name]
+          groupToTeachersRank[node.studentName + node.t1Name + node.t2Name] = node.studentPreference + 1;
+          teacherLimits[node.t1Name]--;
+          teacherLimits[node.t2Name]--;
+          studentsWithPair++;
         }
       }
     }
+  }
+  let studentN = getStudentNames();
+  let studentK = Object.keys(studentToTeachers);
+  if (studentsWithPair < studentN.length) {
+    for (var item of studentN) {
+      if (!studentK.includes(item)) {
+        console.log(item);
+      }
+    }
+    for (var r = 1; r < studentData.length; r++) {
+      //where the student name is stored
+      let studentName = studentData[r][2];
+      if (typeof studentToTeachers[studentName] == "undefined") {
+        teacherList = []
+        for (var c = 3; c < studentData[0].length; c += 2) {
+          if (teacherList.length == 2) {
+            break
+          }
+          let teacher1Name = studentData[r][c];
+          let teacher2Name = studentData[r][c + 1];
+          if (teacherLimits[teacher1Name] > 0 && teacherDataDict[teacher1Name][studentName] > 0) {
+            teacherList.push(teacher1Name)
+          } else {
+            if (teacherLimits[teacher2Name] > 0 && teacherDataDict[teacher2Name][studentName] > 0) {
+              teacherList.push(teacher2Name)
+            }
+          }
+        }
+        if (teacherList.length == 2) {
+          let t1Name = teacherList[0]
+          let t2Name = teacherList[1]
+          teacherToStudents[t1Name].push(studentName);
+          teacherToStudents[t2Name].push(studentName);
+          studentToTeachers[studentName] = [t1Name, t2Name]
+          groupToTeachersRank[studentName + t1Name + t2Name] = -1;
+          teacherLimits[t1Name]--;
+          teacherLimits[t2Name]--;
+          studentsWithPair++;
+        }
+      }
 
-    scores.delete(maxPos);
+
+    }
   }
   generateSheets(studentToTeachers, teacherToStudents, groupToTeachersRank);
-  lockTeacherForms();
-  setProgramState(6);
-  orderSheets();
-  return new SuccessResponse(`Student-teacher pairings made.`)
 }
+
+function getBonus(studentData, r, teacher){
+  let count = 0;
+  for (var c = 3; c < studentData[0].length; c += 2) {
+      let position = [r, c];
+      //String names
+      let teacher1Name = studentData[r][c];
+      let teacher2Name = studentData[r][c + 1];
+      if (teacher1Name == teacher || teacher2Name == teacher){
+        count++;
+      }
+    }
+    if (count >= 3){
+      return 1;
+    }
+    return 0;
+}
+
 
 function getTeacherDataDict() {
   let tFF;
@@ -198,10 +309,6 @@ function getTeacherDataDict() {
   return teacherToData;
 }
 
-function applyRepeatTeacherBonus(){
-  
-}
-
 /**generates final sheets in main SS with all the info - within this are 2 sheets - one with students and their two teachers and another with teachers and their lists of students**/
 function generateSheets(studentToTeachers, teacherToStudents, groupToTeachersRank) {
   let teacherSheet = createSheet("Teacher Results");
@@ -211,6 +318,7 @@ function generateSheets(studentToTeachers, teacherToStudents, groupToTeachersRan
 
   var col = 1;
   let ranks = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+  let nonRank = 0;
   let colors = ["blue", "red", "green", "yellow", "pink", "purple", "orange", "aquamarine", "cadetblue"]
   for (var key in studentToTeachers) {
     //starts at 1,1 not 0,0
@@ -222,9 +330,13 @@ function generateSheets(studentToTeachers, teacherToStudents, groupToTeachersRan
     studentSheet.getRange(3, col).setValue(pair[1]);
     var rank = groupToTeachersRank[key + pair[0] + pair[1]];
     
-    ranks[rank-1]++;
-
-    studentSheet.getRange(1, col).setBackground(colors[rank-1]);
+    if (rank == -1){
+      nonRank++;
+      studentSheet.getRange(1, col).setBackground("white");
+    }else{
+      ranks[rank-1]++;
+      studentSheet.getRange(1, col).setBackground(colors[rank-1]);
+    }
 
     col += 1;
   }
@@ -233,6 +345,9 @@ function generateSheets(studentToTeachers, teacherToStudents, groupToTeachersRan
     studentSheet.getRange(5+x, 1).setBackground(colors[x]);
     studentSheet.getRange(5+x, 1).setValue(ranks[x])
   }
+
+  studentSheet.getRange(5+x, 1).setValue("No rank: " + nonRank)
+
   col = 1;
   var row = 1;
   for (var teacher in teacherToStudents) {
@@ -240,9 +355,6 @@ function generateSheets(studentToTeachers, teacherToStudents, groupToTeachersRan
       let students = teacherToStudents[teacher];
       teacherSheet.getRange(row, col).setValue(teacher);
       row += 1;
-      students = flipNames(students);
-      students.sort();
-      students = flipNames(students);
       for (key in students) {
         let student = students[key];
         teacherSheet.getRange(row, col).setValue(student);
@@ -253,7 +365,6 @@ function generateSheets(studentToTeachers, teacherToStudents, groupToTeachersRan
     }
   }
 }
-
 
 function getTeacherLimits() {
   let teacherLimits = {};

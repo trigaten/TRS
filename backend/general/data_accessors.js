@@ -1,9 +1,9 @@
 
 function getStudentNames() {
     let studentData;
-    try{
+    try {
         studentData = getStudentData();
-    }catch(e){
+    } catch (e) {
         return handleException(e, sheetNotFoundException);
     }
     let names = [];
@@ -25,13 +25,13 @@ function getStudentData() {
 
 function getFinalStudentSheetData() {
     let sheet;
-    try{
+    try {
         sheet = getFinalStudentSheet();
-    }catch(e){
+    } catch (e) {
         return handleException(e, sheetNotFoundException)
     }
     let lastRow = sheet.getLastRow();
-    if (lastRow == 0){
+    if (lastRow == 0) {
         return [[]]
     }
     return sheet.getDataRange().getValues();
@@ -39,19 +39,19 @@ function getFinalStudentSheetData() {
 
 function getFinalTeacherSheetData() {
     let sheet;
-    try{
+    try {
         sheet = getFinalTeacherSheet();
-    }catch(e){
+    } catch (e) {
         return handleException(e, sheetNotFoundException);
     }
     let lastRow = sheet.getLastRow();
-    if (lastRow == 0){
+    if (lastRow == 0) {
         return [[]];
     }
     return sheet.getDataRange().getValues();
 }
 
-function getTeacherEmailFormat(){
+function getTeacherEmailFormat() {
     try {
         let teacherSheet = getTeacherSheet();
         let range = teacherSheet.getRange(5, 1);
@@ -60,22 +60,15 @@ function getTeacherEmailFormat(){
     } catch (e) {
         return handleException(e, sheetNotFoundException);
     }
-  }
+}
 
-function getStudentNameToEmailDict(){
-    let studentForm;
-    try{
-        studentForm = getStudentForm();
-    }catch(e){
-        return handleException(e, formNotFoundException)
-    }
+function getStudentNameToEmailDict() {
+    let studentData = getStudentData();
     let dict = {};
-    for (var response of studentForm.getResponses()){
-        let itemResponses = response.getItemResponses();
-        let name = itemResponses[0].getResponse()
-        let email = response.getRespondentEmail();
-        dict[name] = email;
+    for (r = 1; r < studentData.length; r++) {
+        dict[studentData[r][2]] = studentData[r][1]
     }
+
     console.log(dict)
     return dict;
 }
