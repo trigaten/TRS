@@ -70,6 +70,38 @@ function capitalizeFirstLetter(string) {
 }
 
 
-// function setterGetterGen(){
-//     let items = [{name: "Student Form Email Draft", function: "StudentFormEmailDraftId"}]
-// }
+function setterGetterGen(){
+    let items = [{name: "Student Form Email", function: "StudentFormEmail"},
+    {name: "Teacher Form Email", function: "TeacherFormEmail"},
+    {name: "Student Reminder Email", function: "StudentReminderEmail"},
+    {name: "Teacher Reminder Email", function: "TeacherReminderEmail"},
+    {name: "Student Result Email", function: "StudentResultEmail"},
+    {name: "Teacher Result Email", function: "TeacherResultEmail"}]
+    for (var item of items){
+        console.log(`const ${item.function.toUpperCase()}ID = "${item.function.toUpperCase()}ID"`)
+        console.log(`function set${item.function}Id(id){
+            let scriptProperties = PropertiesService.getDocumentProperties();
+            scriptProperties.setProperty(${item.function.toUpperCase()}ID, id);
+        }`)
+        console.log(`function get${item.function}Id(){
+            let scriptProperties = PropertiesService.getDocumentProperties();
+            let id = scriptProperties.getProperty(${item.function.toUpperCase()}ID);
+            if (id != null){
+                return id;
+            }
+            return "";
+        }
+        `)
+        console.log(`function get${item.function}(){
+            let id = get${item.function}Id();
+            try{
+                return GmailApp.getDraft(id);
+            }catch(e){
+                throw new EmailNotFoundException("${item.name} not found.")
+            }
+        }
+        `)
+    }
+}
+
+setterGetterGen()

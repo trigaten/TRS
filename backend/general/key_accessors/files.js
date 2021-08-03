@@ -66,7 +66,7 @@ function getStudentForm() {
 function getStudentFormId() {
     let scriptProperties = PropertiesService.getDocumentProperties();
     let studentSheetFormId = scriptProperties.getProperty(STUDENTFORMIDKEY);
-    if (studentSheetFormId != null){
+    if (studentSheetFormId != null) {
         return studentSheetFormId;
     }
     return "";
@@ -80,7 +80,7 @@ function setStudentFormId(id) {
 function getProjectFolderId() {
     let scriptProperties = PropertiesService.getDocumentProperties();
     let id = scriptProperties.getProperty(PROJECTFOLDERIDKEY);
-    if (id != null){
+    if (id != null) {
         return id;
     }
     return "";
@@ -93,11 +93,11 @@ function setProjectFolderId(id) {
 
 function getProjectFolder() {
     let folder;
-    try{
-      folder = DriveApp.getFolderById(getProjectFolderId());
-      return folder;
-    }catch(e){
-      throw new FolderNotFoundException("Project folder not found.")
+    try {
+        folder = DriveApp.getFolderById(getProjectFolderId());
+        return folder;
+    } catch (e) {
+        throw new FolderNotFoundException("Project folder not found.")
     }
 }
 
@@ -181,7 +181,7 @@ function setHomeSheetId(id) {
     scriptProperties.setProperty(HOMESHEETIDKEY, id);
 }
 
-function getFinalStudentSheet(){
+function getFinalStudentSheet() {
     let id = getFinalStudentSheetId();
     try {
         return getSheetById(id);
@@ -190,16 +190,16 @@ function getFinalStudentSheet(){
     }
 }
 
-function getFinalStudentSheetId(){
+function getFinalStudentSheetId() {
     let scriptProperties = PropertiesService.getDocumentProperties();
     let id = scriptProperties.getProperty(FINALSTUDENTSHEETID);
-    if (id != null){
+    if (id != null) {
         return id;
     }
     return "";
 }
 
-function getFinalTeacherSheet(){
+function getFinalTeacherSheet() {
     try {
         let id = getFinalTeacherSheetId();
         return getSheetById(id);
@@ -208,34 +208,149 @@ function getFinalTeacherSheet(){
     }
 }
 
-function getFinalTeacherSheetId(){
+function getFinalTeacherSheetId() {
     let scriptProperties = PropertiesService.getDocumentProperties();
     let id = scriptProperties.getProperty(FINALTEACHERSHEETID);
-    if (id != null){
+    if (id != null) {
         return id;
     }
     return "";
 }
 
-function setStudentFormEmailId(id){
+const STUDENTFORMEMAILID = "STUDENTFORMEMAILID"
+function setStudentFormEmailId(id) {
     let scriptProperties = PropertiesService.getDocumentProperties();
     scriptProperties.setProperty(STUDENTFORMEMAILID, id);
 }
-
-function getStudentFormEmailId(){
+function getStudentFormEmailId() {
     let scriptProperties = PropertiesService.getDocumentProperties();
     let id = scriptProperties.getProperty(STUDENTFORMEMAILID);
-    if (id != null){
+    if (id != null) {
         return id;
     }
     return "";
 }
 
-function getStudentFormEmail(){
+function getStudentFormEmail() {
     let id = getStudentFormEmailId();
-    try{
+    try {
         return GmailApp.getDraft(id);
-    }catch(e){
-        throw new EmailNotFoundException("Student form email not found.")
+    } catch (e) {
+        throw new EmailNotFoundException("Student Form Email not found.")
+    }
+}
+
+const TEACHERFORMEMAILID = "TEACHERFORMEMAILID"
+function setTeacherFormEmailId(id) {
+    let scriptProperties = PropertiesService.getDocumentProperties();
+    scriptProperties.setProperty(TEACHERFORMEMAILID, id);
+}
+function getTeacherFormEmailId() {
+    let scriptProperties = PropertiesService.getDocumentProperties();
+    let id = scriptProperties.getProperty(TEACHERFORMEMAILID);
+    if (id != null) {
+        return id;
+    }
+    return "";
+}
+
+function getTeacherFormEmail() {
+    let id = getTeacherFormEmailId();
+    try {
+        return GmailApp.getDraft(id);
+    } catch (e) {
+        throw new EmailNotFoundException("Teacher Form Email not found.")
+    }
+}
+
+const STUDENTREMINDEREMAILID = "STUDENTREMINDEREMAILID"
+function setStudentReminderEmailId(id) {
+    let scriptProperties = PropertiesService.getDocumentProperties();
+    scriptProperties.setProperty(STUDENTREMINDEREMAILID, id);
+}
+function getStudentReminderEmailId() {
+    let scriptProperties = PropertiesService.getDocumentProperties();
+    let id = scriptProperties.getProperty(STUDENTREMINDEREMAILID);
+    if (id != null) {
+        return id;
+    }
+    return "";
+}
+
+function getStudentReminderEmail() {
+    let id = getStudentReminderEmailId();
+    try {
+        return GmailApp.getDraft(id);
+    } catch (e) {
+        throw new EmailNotFoundException("Student Reminder Email not found.")
+    }
+}
+
+const TEACHERREMINDEREMAILID = "TEACHERREMINDEREMAILID"
+function setTeacherReminderEmailId(id) {
+    let scriptProperties = PropertiesService.getDocumentProperties();
+    scriptProperties.setProperty(TEACHERREMINDEREMAILID, id);
+}
+function getTeacherReminderEmailId() {
+    let scriptProperties = PropertiesService.getDocumentProperties();
+    let id = scriptProperties.getProperty(TEACHERREMINDEREMAILID);
+    if (id != null) {
+        return id;
+    }
+    return "";
+}
+
+function getTeacherReminderEmail() {
+    let id = getTeacherReminderEmailId();
+    try {
+        return GmailApp.getDraft(id);
+    } catch (e) {
+        throw new EmailNotFoundException("Teacher Reminder Email not found.")
+    }
+}
+
+const STUDENTRESULTEMAILID = "STUDENTRESULTEMAILID"
+function setStudentResultEmailId(id) {
+    let scriptProperties = PropertiesService.getDocumentProperties();
+    scriptProperties.setProperty(STUDENTRESULTEMAILID, id);
+}
+function getStudentResultEmailId() {
+    let scriptProperties = PropertiesService.getDocumentProperties();
+    let id = scriptProperties.getProperty(STUDENTRESULTEMAILID);
+    if (id != null) {
+        return id;
+    }
+    return "";
+}
+
+function getStudentResultEmail() {
+    let id = getStudentResultEmailId();
+    try {
+        return GmailApp.getDraft(id);
+    } catch (e) {
+        throw new EmailNotFoundException("Student Result Email not found.")
+    }
+}
+
+const TEACHERRESULTEMAILID = "TEACHERRESULTEMAILID"
+function setTeacherResultEmailId(id) {
+    let scriptProperties = PropertiesService.getDocumentProperties();
+    scriptProperties.setProperty(TEACHERRESULTEMAILID, id);
+}
+function getTeacherResultEmailId() {
+    let scriptProperties = PropertiesService.getDocumentProperties();
+    let id = scriptProperties.getProperty(TEACHERRESULTEMAILID);
+    if (id != null) {
+        return id;
+    }
+    return "";
+}
+
+function getTeacherResultEmail() {
+    let id = getTeacherResultEmailId();
+    try {
+        return GmailApp.getDraft(id);
+    } catch (e) {
+        throw new EmailNotFoundException("Teacher Result Email not found.")
     }
 }

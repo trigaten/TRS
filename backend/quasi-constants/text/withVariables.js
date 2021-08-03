@@ -1,22 +1,3 @@
-//for when a student lists a teacher twice (so for both of their choices)
-//This returns what the second version of that student's name should be called
-function getNameOfSecondInstanceOfStudent(name) {
-    return "Second recommendation for " + name;
-}
-
-function getNoteText() {
-    return `<b>A note from your counseling team</b>:<br>`
-}
-
-function getDefaultStudentEmailText() {
-    return `Hello,<br><br>
-    
-    Please see the form below. Fill out your teacher recommender preferences according to the instructions in the form.<br>
-    Here is a video that shows how to fill out your form: [TUTORIAL_LINK].<br><br>
-    
-    Your form: [FORM_LINK].`
-}
-
 function getStudentEmailText() {
     let tutorialLink = getStudentTutorialLink();
     let formLink = getStudentFormPublishedLink();
@@ -140,18 +121,6 @@ function getOtherName() {
 
 function getTeacherFormName(name) {
     return name + " form";
-}
-
-function getFinalResultsGSheetName() {
-    return "Final Results";
-}
-
-function getStudentFinalResultsSheetName() {
-    return "Final Student Pairings";
-}
-
-function getTeacherFinalResultsSheetName() {
-    return "Final Teacher Lists";
 }
 
 function getFinalStudentEmailMessage(studentName, teacher1, teacher2) {

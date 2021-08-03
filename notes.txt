@@ -73,3 +73,7 @@ https://sites.google.com/site/scriptsexamples/custom-methods/gsunit
     teacherNameCol[x] = teacherNameCol[x][0];
     responseRecordedColVals[x] = responseRecordedColVals[x][0];
   }
+
+  handle teachers who no students selected appropriately
+
+  handle teachers with no result

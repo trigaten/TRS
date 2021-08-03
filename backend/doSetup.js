@@ -62,9 +62,12 @@ function doSetup() {
 
 function generateEmailDrafts(){
   // student form email
-  let studentFormEmail = GmailApp.createDraft("", "Your Teacher Recommender Form", getDefaultStudentEmailText());
+  let studentFormEmail = GmailApp.createDraft("", "Your Teacher Recommender Form", "", { htmlBody: getDefaultStudentEmailText() });
   setStudentFormEmailId(studentFormEmail.getId());
-
+  // teacher form email
+  let teacherFormEmail = GmailApp.createDraft("", "Your Teacher Recommender Form", "", { htmlBody: getDefaultTeacherEmailText() });
+  setTeacherFormEmailId(teacherFormEmail.getId());
+  
 }
 
 function getProjectName() {

@@ -11,8 +11,7 @@ function sendStudentEmails() {
         return new FailureResponse(e.message);
     }
     //send 'em
-    for (var x = 0; x < studentEmails.length; x++) {
-        let email = studentEmails[x];
+    for (var email of studentEmails) {
         emailStudentForm(email);
     }
     setProgramState(3);
