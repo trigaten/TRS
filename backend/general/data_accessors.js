@@ -65,7 +65,7 @@ function getTeacherEmailFormat() {
 function getStudentNameToEmailDict() {
     let studentData = getStudentData();
     let dict = {};
-    for (r = 1; r < studentData.length; r++) {
+    for (let r = 1; r < studentData.length; r++) {
         dict[studentData[r][2]] = studentData[r][1]
     }
 

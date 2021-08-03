@@ -70,6 +70,6 @@ function capitalizeFirstLetter(string) {
 }
 
 
-function setterGetterGen(){
-    let items = [{name: "Student Form Email Draft", function: "StudentFormEmailDraftId"}]
-}
+// function setterGetterGen(){
+//     let items = [{name: "Student Form Email Draft", function: "StudentFormEmailDraftId"}]
+// }

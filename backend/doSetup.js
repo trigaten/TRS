@@ -7,9 +7,8 @@ function doSetup() {
     return handleException(e, UnauthorizedUserException);
   }
 
-  var triggers = ScriptApp.getProjectTriggers();
-  for (var i = 0; i < triggers.length; i++) {
-    ScriptApp.deleteTrigger(triggers[i]);
+  for (var trigger of ScriptApp.getProjectTriggers()) {
+    ScriptApp.deleteTrigger(trigger);
   }
 
   scriptProperties.deleteAllProperties()

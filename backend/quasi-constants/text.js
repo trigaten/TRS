@@ -4,11 +4,11 @@ function getNameOfSecondInstanceOfStudent(name) {
     return "Second recommendation for " + name;
 }
 
-function getNoteText(){
+function getNoteText() {
     return `<b>A note from your counseling team</b>:<br>`
 }
 
-function getDefaultStudentEmailText(){
+function getDefaultStudentEmailText() {
     return `Hello,<br><br>
     
     Please see the form below. Fill out your teacher recommender preferences according to the instructions in the form.<br>
@@ -20,8 +20,8 @@ function getDefaultStudentEmailText(){
 function getStudentEmailText() {
     let tutorialLink = getStudentTutorialLink();
     let formLink = getStudentFormPublishedLink();
-    if (isResponse(formLink)){
-        throw "Student form link not found."
+    if (isResponse(formLink)) {
+        throw Error("Student form link not found.")
     }
     let msg = `Hello,<br><br>
     
@@ -81,12 +81,11 @@ Your form: ` + formLink + "<br><br>";
     return msg;
 }
 
-function getTeacherEmailNoFormText(teacherName){
-    let msg = `Hello ${getTeacherEmailName(teacherName)},
+function getTeacherEmailNoFormText(teacherName) {
+    return `Hello ${getTeacherEmailName(teacherName)},
 
 No students listed you as a potential rec writer. 
 If you feel this was a mistake, please contact your college counseling team.`
-    return msg;
 }
 
 function getTeacherFormDescription() {
@@ -166,7 +165,7 @@ function getFinalStudentEmailMessage(studentName, teacher1, teacher2) {
 }
 
 function getFinalTeacherEmailMessage(teacherName, studentList) {
-    if (studentList.length > 0){
+    if (studentList.length > 0) {
         var msg = `Hello ${teacherName},<br><br>
         Your assigned students are below:
         <ul>`
@@ -178,7 +177,7 @@ function getFinalTeacherEmailMessage(teacherName, studentList) {
         if (counselorNote != "") {
             msg += `${getNoteText()}${counselorNote}`
         }
-    }else{
+    } else {
         msg = `Hello ${teacherName},<br><br>
         You were not assigned any students.`
     }
@@ -187,7 +186,7 @@ function getFinalTeacherEmailMessage(teacherName, studentList) {
 
 function getTeacherSurveyEmailMessage() {
     let link = getTeacherSurveyPublishedLink();
-    if (isResponse(link)){
+    if (isResponse(link)) {
         return link;
     }
     return `Hello,
@@ -198,34 +197,34 @@ ${link}`
 
 function getStudentSurveyEmailMessage() {
     let link = getStudentSurveyPublishedLink();
-    if (isResponse(link)){
+    if (isResponse(link)) {
         return link;
     }
-    
+
     return `Hello,
 
 Please complete the following survey about your experience with the TRS system:
 ${link}`
 }
 
-function getEmailsSentResponse(type, amt){
+function getEmailsSentResponse(type, amt) {
     let msg;
-    if (amt == 0){
+    if (amt == 0) {
         msg = `No ${type} emails sent.`;
-    }else{
-        if (amt == 1){
+    } else {
+        if (amt == 1) {
             msg = `1 ${type} email sent.`;
-        }else{
+        } else {
             msg = `${capitalizeFirstLetter(type)} emails sent. # of emails sent: ${amt}.`
         }
     }
-    if (type.includes("reminder")){
-        if (amt == 0){
+    if (type.includes("reminder")) {
+        if (amt == 0) {
             return new NeutralResponse(msg)
         }
         return new SuccessResponse(msg)
     }
-    if (amt == 0){
+    if (amt == 0) {
         return new WarningResponse(msg)
     }
     return new SuccessResponse(msg)

@@ -68,3 +68,8 @@ flipname breaks with long last names with multiple spaces
 
 
 https://sites.google.com/site/scriptsexamples/custom-methods/gsunit
+
+ for (var x = 0; x < teacherNameCol.length; x++) {
+    teacherNameCol[x] = teacherNameCol[x][0];
+    responseRecordedColVals[x] = responseRecordedColVals[x][0];
+  }

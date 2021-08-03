@@ -80,16 +80,12 @@ class LinkedList {
 }
 
 
-function runAlgorithmLL() {
+function runAlgorithm() {
   //get student data
   let studentData = getStudentData();
   if (isResponse(studentData)) {
     return studentData;
   }
-  //get teachers names
-  let teacherNames = getTeacherNames();
-  //get student names
-  let studentNames = getStudentNames();
   //get teachers scoring of students
   let teacherDataDict = getTeacherDataDict();
 
@@ -103,13 +99,9 @@ function runAlgorithmLL() {
     //where the student name is stored
     let student = studentData[r][2];
     for (var c = 3; c < studentData[0].length; c += 2) {
-      let position = [r, c];
       //String names
       let teacher1Name = studentData[r][c];
       let teacher2Name = studentData[r][c + 1];
-      // get teacher data dictionaries
-      let teacher1 = teacherDataDict[teacher1Name];
-      let teacher2 = teacherDataDict[teacher2Name];
       //-3 because getting rid of first 3 non-data columns -- is how many pairs there are total
       let pairTotalNum = (studentData[0].length - 3) / 2
       let score = 0;
@@ -152,11 +144,7 @@ function runAlgorithmLL() {
           }
         }
       }
-      // if (score > 30){
-      //   score-=30
-      // }
-      // 21
-      // score *= 7*(pairTotalNum - (c - 3) / 2)//24-c//(pairTotalNum - (c - 3) / 2); 
+       
       if (score != 0) {
         score *= (pairTotalNum - (c - 3) / 2)
         // apply bonuses
@@ -188,7 +176,7 @@ function runAlgorithmLL() {
 
   let teacherLimits = getTeacherLimits()
 
-  while (nodeList.isEmpty() != true) {
+  while (nodeList.isEmpty()) {
     let node = nodeList.pop();
     if (typeof groupToTeachersRank[node.studentName + node.t1Name + node.t2Name] == "undefined") {
       if (studentToTeachers[node.studentName] == null && node.score > 0) {
@@ -212,12 +200,12 @@ function runAlgorithmLL() {
         console.log(item);
       }
     }
-    for (var r = 1; r < studentData.length; r++) {
+    for (r = 1; r < studentData.length; r++) {
       //where the student name is stored
       let studentName = studentData[r][2];
       if (typeof studentToTeachers[studentName] == "undefined") {
-        teacherList = []
-        for (var c = 3; c < studentData[0].length; c += 2) {
+        let teacherList = []
+        for (c = 3; c < studentData[0].length; c += 2) {
           if (teacherList.length == 2) {
             break
           }
@@ -253,7 +241,6 @@ function runAlgorithmLL() {
 function getBonus(studentData, r, teacher){
   let count = 0;
   for (var c = 3; c < studentData[0].length; c += 2) {
-      let position = [r, c];
       //String names
       let teacher1Name = studentData[r][c];
       let teacher2Name = studentData[r][c + 1];
@@ -284,8 +271,8 @@ function getTeacherDataDict() {
   //Create dict object from teacher names and their individual data
   let teacherToData = {};
 
-  for (var x = 0; x < teachers.length; x++) {
-    let formName = getTeacherFormName(teachers[x]);
+  for (var teacher of teachers) {
+    let formName = getTeacherFormName(teacher);
     if (tFF.getFilesByName(formName).hasNext()) {
       //since only one form by that name, just take the .next() of the iterator object
       let file = tFF.getFilesByName(formName).next();
@@ -302,7 +289,7 @@ function getTeacherDataDict() {
           number = item.getResponse();
           teacherData[name] = number;
         }
-        teacherToData[teachers[x]] = teacherData;
+        teacherToData[teacher] = teacherData;
       }
     }
   }
@@ -398,7 +385,3 @@ function getTeacherLimits() {
   }
   return teacherLimits;
 }
-
-// function bumpTeacherDataDict(dataDict, upperLimit = 10) {
-
-// }

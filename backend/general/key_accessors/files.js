@@ -234,9 +234,8 @@ function getStudentFormEmailId(){
 function getStudentFormEmail(){
     let id = getStudentFormEmailId();
     try{
-        return GmailApp.getDraft(draftId);
+        return GmailApp.getDraft(id);
     }catch(e){
-        // throw new EmailNotFoun
+        throw new EmailNotFoundException("Student form email not found.")
     }
-    
 }
