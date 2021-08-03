@@ -69,6 +69,5 @@ function getStudentNameToEmailDict() {
         dict[studentData[r][2]] = studentData[r][1]
     }
 
-    console.log(dict)
     return dict;
 }
