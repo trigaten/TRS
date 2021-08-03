@@ -67,7 +67,20 @@ function generateEmailDrafts(){
   // teacher form email
   let teacherFormEmail = GmailApp.createDraft("", "Your Teacher Recommender Form", "", { htmlBody: getDefaultTeacherEmailText() });
   setTeacherFormEmailId(teacherFormEmail.getId());
-  
+
+  // student form reminder email
+  let studentFormReminderEmail = GmailApp.createDraft("", getStudentReminderSubject(), "", { htmlBody: getDefaultStudentReminderEmailText() });
+  setStudentFormReminderEmailId(studentFormReminderEmail.getId());
+  // teacher form reminder email
+  let teacherFormReminderEmail = GmailApp.createDraft("", getTeacherReminderSubject(), "", { htmlBody: getDefaultTeacherReminderEmailText() });
+  setTeacherFormReminderEmailId(teacherFormReminderEmail.getId());
+
+  // student result email
+  let studentResultEmail = GmailApp.createDraft("", getStudentResultSubject(), "", { htmlBody: getDefaultStudentResultText() });
+  setStudentResultEmailId(studentResultEmail.getId());
+  // teacher result email
+  let teacherResultEmail = GmailApp.createDraft("", getTeacherReminderSubject(), "", { htmlBody: getDefaultTeacherResultText() });
+  setTeacherResultEmailId(teacherResultEmail.getId());
 }
 
 function getProjectName() {

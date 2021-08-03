@@ -216,7 +216,7 @@ function getFinalTeacherSheetId() {
     }
     return "";
 }
-
+// AUTOGEN
 const STUDENTFORMEMAILID = "STUDENTFORMEMAILID"
 function setStudentFormEmailId(id) {
     let scriptProperties = PropertiesService.getDocumentProperties();
@@ -263,22 +263,22 @@ function getTeacherFormEmail() {
     }
 }
 
-const STUDENTREMINDEREMAILID = "STUDENTREMINDEREMAILID"
-function setStudentReminderEmailId(id) {
+const STUDENTFORMREMINDEREMAILID = "STUDENTFORMREMINDEREMAILID"
+function setStudentFormReminderEmailId(id) {
     let scriptProperties = PropertiesService.getDocumentProperties();
-    scriptProperties.setProperty(STUDENTREMINDEREMAILID, id);
+    scriptProperties.setProperty(STUDENTFORMREMINDEREMAILID, id);
 }
-function getStudentReminderEmailId() {
+function getStudentFormReminderEmailId() {
     let scriptProperties = PropertiesService.getDocumentProperties();
-    let id = scriptProperties.getProperty(STUDENTREMINDEREMAILID);
+    let id = scriptProperties.getProperty(STUDENTFORMREMINDEREMAILID);
     if (id != null) {
         return id;
     }
     return "";
 }
 
-function getStudentReminderEmail() {
-    let id = getStudentReminderEmailId();
+function getStudentFormReminderEmail() {
+    let id = getStudentFormReminderEmailId();
     try {
         return GmailApp.getDraft(id);
     } catch (e) {
@@ -286,22 +286,22 @@ function getStudentReminderEmail() {
     }
 }
 
-const TEACHERREMINDEREMAILID = "TEACHERREMINDEREMAILID"
-function setTeacherReminderEmailId(id) {
+const TEACHERFORMREMINDEREMAILID = "TEACHERFORMREMINDEREMAILID"
+function setTeacherFormReminderEmailId(id) {
     let scriptProperties = PropertiesService.getDocumentProperties();
-    scriptProperties.setProperty(TEACHERREMINDEREMAILID, id);
+    scriptProperties.setProperty(TEACHERFORMREMINDEREMAILID, id);
 }
-function getTeacherReminderEmailId() {
+function getTeacherFormReminderEmailId() {
     let scriptProperties = PropertiesService.getDocumentProperties();
-    let id = scriptProperties.getProperty(TEACHERREMINDEREMAILID);
+    let id = scriptProperties.getProperty(TEACHERFORMREMINDEREMAILID);
     if (id != null) {
         return id;
     }
     return "";
 }
 
-function getTeacherReminderEmail() {
-    let id = getTeacherReminderEmailId();
+function getTeacherFormReminderEmail() {
+    let id = getTeacherFormReminderEmailId();
     try {
         return GmailApp.getDraft(id);
     } catch (e) {

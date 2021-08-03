@@ -27,7 +27,7 @@ function getDefaultTeacherEmailText() {
     Your form: [FORM_LINK]`
 }
 
-function getDefaultStudentReminderText() {
+function getDefaultStudentReminderEmailText() {
     return `Hello,
     
 You have not filled out your teacher recommender form yet.
@@ -37,7 +37,7 @@ Here is a video explaining how to fill it out: [STUDENT_TUTORIAL_LINK].
 Your form: [FORM_LINK]`
 }
 
-function getDefaultTeacherReminderText() {
+function getDefaultTeacherReminderEmailText() {
     return `Hello [TEACHER_NAME],
     
 You have not filled out your teacher recommender form yet.
@@ -71,4 +71,20 @@ function getStudentFinalResultsSheetName() {
 
 function getTeacherFinalResultsSheetName() {
     return "Final Teacher Lists";
+}
+
+function getStudentReminderSubject(){
+    return 'Reminder to Complete Your Student Form'
+}
+
+function getTeacherReminderSubject(){
+    return 'Reminder to Complete Your Teacher Form'
+}
+
+function getStudentResultSubject(){
+    return 'Your Teacher Recommenders'
+}
+
+function getTeacherResultSubject(){
+    return 'Your Student Recommendation List'
 }

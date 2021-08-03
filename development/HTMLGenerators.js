@@ -73,8 +73,8 @@ function capitalizeFirstLetter(string) {
 function setterGetterGen(){
     let items = [{name: "Student Form Email", function: "StudentFormEmail"},
     {name: "Teacher Form Email", function: "TeacherFormEmail"},
-    {name: "Student Reminder Email", function: "StudentReminderEmail"},
-    {name: "Teacher Reminder Email", function: "TeacherReminderEmail"},
+    {name: "Student Reminder Email", function: "StudentFormReminderEmail"},
+    {name: "Teacher Reminder Email", function: "TeacherFormReminderEmail"},
     {name: "Student Result Email", function: "StudentResultEmail"},
     {name: "Teacher Result Email", function: "TeacherResultEmail"}]
     for (var item of items){
