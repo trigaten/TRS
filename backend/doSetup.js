@@ -46,6 +46,8 @@ function doSetup() {
   let teachersSheet = makeTeachersSheet();
   let studentsSheet = makeStudentsSheet();
 
+  generateEmailDrafts()
+
   //END AREA
   SpreadsheetApp.setActiveSheet(homeSheet)
   setProjectFolderId(projectFolder.getId());
@@ -57,6 +59,13 @@ function doSetup() {
   setAmountOfTeacherPairs(6);
   setLogStep(0);
   return new SuccessResponse("All set up! Go ahead and start entering student and teacher emails.")
+}
+
+function generateEmailDrafts(){
+  // student form email
+  let studentFormEmail = GmailApp.createDraft("", "Your Teacher Recommender Form", getDefaultStudentEmailText());
+  setStudentFormEmailId(studentFormEmail.getId());
+  
 }
 
 function getProjectName() {

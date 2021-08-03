@@ -68,3 +68,8 @@ function responseGenerator() {
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+
+function setterGetterGen(){
+    let items = [{name: "Student Form Email Draft", function: "StudentFormEmailDraftId"}]
+}

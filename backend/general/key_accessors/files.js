@@ -216,3 +216,27 @@ function getFinalTeacherSheetId(){
     }
     return "";
 }
+
+function setStudentFormEmailId(id){
+    let scriptProperties = PropertiesService.getDocumentProperties();
+    scriptProperties.setProperty(STUDENTFORMEMAILID, id);
+}
+
+function getStudentFormEmailId(){
+    let scriptProperties = PropertiesService.getDocumentProperties();
+    let id = scriptProperties.getProperty(STUDENTFORMEMAILID);
+    if (id != null){
+        return id;
+    }
+    return "";
+}
+
+function getStudentFormEmail(){
+    let id = getStudentFormEmailId();
+    try{
+        return GmailApp.getDraft(draftId);
+    }catch(e){
+        // throw new EmailNotFoun
+    }
+    
+}

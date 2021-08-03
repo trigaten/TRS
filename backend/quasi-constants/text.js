@@ -8,6 +8,15 @@ function getNoteText(){
     return `<b>A note from your counseling team</b>:<br>`
 }
 
+function getDefaultStudentEmailText(){
+    return `Hello,<br><br>
+    
+    Please see the form below. Fill out your teacher recommender preferences according to the instructions in the form.<br>
+    Here is a video that shows how to fill out your form: [TUTORIAL_LINK].<br><br>
+    
+    Your form: [FORM_LINK].`
+}
+
 function getStudentEmailText() {
     let tutorialLink = getStudentTutorialLink();
     let formLink = getStudentFormPublishedLink();
