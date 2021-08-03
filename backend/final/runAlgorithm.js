@@ -273,7 +273,7 @@ function getTeacherDataDict() {
   try {
     tFF = getTeacherFormsFolder();
   } catch (e) {
-    return handleException(e, folderNotFoundException);
+    return handleException(e, FolderNotFoundException);
   }
   //iterator object
   let teachers = getTeacherNames();
@@ -374,7 +374,7 @@ function getTeacherLimits() {
   try {
     tFF = getTeacherFormsFolder();
   } catch (e) {
-    return handleException(e, folderNotFoundException);
+    return handleException(e, FolderNotFoundException);
   }
 
   //iterator object

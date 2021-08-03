@@ -1,72 +1,79 @@
 // different server-side exceptions which can be thrown
-class groupException extends Error {
+class GroupException extends Error {
     constructor(message) {
       super(message); 
-      this.name = "groupException"; 
+      this.name = "GroupException"; 
     }
 }
 
-class noDataException extends Error {
+//TODO use
+class NoDataException extends Error {
     constructor(message) {
       super(message); 
       this.name = "noDataExcepction"; 
     }
 }
 
-class unevenDataException extends Error {
+class UnevenDataException extends Error {
     constructor(message) {
       super(message); 
-      this.name = "unevenDataException"; 
+      this.name = "UnevenDataException"; 
     }
 }
 
-class invalidEmailException extends Error {
+class InvalidEmailException extends Error {
     constructor(message) {
       super(message); 
-      this.name = "invalidEmailException"; 
+      this.name = "InvalidEmailException"; 
     }
 }
 
-class formatTypeException extends Error {
+class FormatTypeException extends Error {
     constructor(message) {
       super(message); 
-      this.name = "formatTypeException"; 
+      this.name = "FormatTypeException"; 
     }
 }
 
-
-class formNotFoundException extends Error {
+class FormNotFoundException extends Error {
     constructor(message) {
       super(message); 
-      this.name = "formNotFoundException"; 
+      this.name = "FormNotFoundException"; 
     }
 }
 
-class sheetNotFoundException extends Error {
+class SheetNotFoundException extends Error {
     constructor(message) {
       super(message); 
-      this.name = "sheetNotFoundException"; 
+      this.name = "SheetNotFoundException"; 
     }
 }
 
-class fileNotFoundException extends Error {
+class FileNotFoundException extends Error {
   constructor(message) {
     super(message); 
-    this.name = "fileNotFoundException"; 
+    this.name = "FileNotFoundException"; 
   }
 }
 
-class folderNotFoundException extends Error {
+class FolderNotFoundException extends Error {
   constructor(message) {
     super(message);
-    this.name = "folderNotFoundException"; 
+    this.name = "FolderNotFoundException"; 
   }
 }
 
-class unknownException extends Error {
+class EmailNotFoundException extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "EmailNotFoundException"; 
+  }
+}
+
+class UnknownException extends Error {
     constructor(message) {
       super(message); 
-      this.name = "unknownException"; 
+      this.name = "UnknownException"; 
     }
 }
 

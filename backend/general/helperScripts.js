@@ -12,7 +12,7 @@ function getStudentFormPublishedLink() {
     let form = getStudentForm();
     return form.getPublishedUrl();
   } catch (e) {
-    return handleException(e, formNotFoundException)
+    return handleException(e, FormNotFoundException)
   }
 }
 
@@ -71,7 +71,7 @@ function lockStudentForm() {
     studentForm.setAllowResponseEdits(false);
     studentForm.setAcceptingResponses(false);
   } catch (error) {
-    return handleException(e, formNotFoundException);
+    return handleException(e, FormNotFoundException);
   }
 }
 
@@ -85,7 +85,7 @@ function lockTeacherForms() {
     try {
       tFF = getTeacherFormsFolder();
     } catch (e) {
-      return handleException(e, folderNotFoundException);
+      return handleException(e, FolderNotFoundException);
     }
     let name = teacherNames[x];
     let files = tFF.getFilesByName(getTeacherFormName(name));

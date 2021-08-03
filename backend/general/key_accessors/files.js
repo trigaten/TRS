@@ -7,7 +7,7 @@ function getTeacherSheet() {
         let teacherSheetId = getTeacherSheetId();
         return getSheetById(teacherSheetId);
     } catch (e) {
-        throw new sheetNotFoundException("Teachers sheet not found.")
+        throw new SheetNotFoundException("Teachers sheet not found.")
     }
 }
 
@@ -34,7 +34,7 @@ function getStudentSheet() {
         let studentSheetId = scriptProperties.getProperty(STUDENTSHEETIDKEY);
         return getSheetById(studentSheetId);
     } catch (e) {
-        throw new sheetNotFoundException("Students sheet not found.")
+        throw new SheetNotFoundException("Students sheet not found.")
     }
 }
 
@@ -59,7 +59,7 @@ function getStudentForm() {
     try {
         return FormApp.openById(getStudentFormId());
     } catch (e) {
-        throw new formNotFoundException("Student form not found.");
+        throw new FormNotFoundException("Student form not found.");
     }
 }
 
@@ -97,7 +97,7 @@ function getProjectFolder() {
       folder = DriveApp.getFolderById(getProjectFolderId());
       return folder;
     }catch(e){
-      throw new folderNotFoundException("Project folder not found.")
+      throw new FolderNotFoundException("Project folder not found.")
     }
 }
 
@@ -105,7 +105,7 @@ function getTeacherFormsFolder() {
     try {
         return DriveApp.getFolderById(getTeacherFormsFolderId());
     } catch (e) {
-        throw new folderNotFoundException("Teacher forms folder not found.");
+        throw new FolderNotFoundException("Teacher forms folder not found.");
     }
 }
 
@@ -129,7 +129,7 @@ function getStudentDataSheet() {
         let studentDataSheetId = scriptProperties.getProperty(STUDENTDATASHEETIDKEY);
         return getSheetById(studentDataSheetId);
     } catch (e) {
-        throw new sheetNotFoundException("Students sheet not found.")
+        throw new SheetNotFoundException("Students sheet not found.")
     }
 }
 
@@ -172,7 +172,7 @@ function getHomeSheet() {
         let id = scriptProperties.getProperty(HOMESHEETIDKEY);
         return getSheetById(id);
     } catch (e) {
-        throw new sheetNotFoundException("Home sheet not found.")
+        throw new SheetNotFoundException("Home sheet not found.")
     }
 }
 
@@ -186,7 +186,7 @@ function getFinalStudentSheet(){
     try {
         return getSheetById(id);
     } catch (e) {
-        throw new sheetNotFoundException("Final student sheet not found.")
+        throw new SheetNotFoundException("Final student sheet not found.")
     }
 }
 
@@ -204,7 +204,7 @@ function getFinalTeacherSheet(){
         let id = getFinalTeacherSheetId();
         return getSheetById(id);
     } catch (e) {
-        throw new sheetNotFoundException("Final teacher sheet not found.")
+        throw new SheetNotFoundException("Final teacher sheet not found.")
     }
 }
 

@@ -13,20 +13,20 @@ function validateStudentEmailSection(studentAddRemoveColVals, studentGroupIndivC
             }
         }
         if (studentAddRemoveColVals[x] == "" || studentGroupIndivColVals[x] == "" || studentEmailColVals[x] == ""){
-            throw new unevenDataException("You have uneven data on line " + errorIndex);
+            throw new UnevenDataException("You have uneven data on line " + errorIndex);
         }
     }
 
     //validate data
     for (x = 0; x < groupIndivList.length; x++){
         if (!(groupIndivList[x] == "Individual" || groupIndivList[x] == "Group")){
-            throw new formatTypeException("Must choose 'Individual' or 'Group' on line " + x + errorIndex); 
+            throw new FormatTypeException("Must choose 'Individual' or 'Group' on line " + x + errorIndex); 
         }
         if (!(addRemoveList[x] == "Add" || addRemoveList[x] == "Remove")){
-            throw new formatTypeException("Must choose 'Add' or 'Remove' on line " + x + errorIndex); 
+            throw new FormatTypeException("Must choose 'Add' or 'Remove' on line " + x + errorIndex); 
         }
         if (!validateEmail(emailList[x])){
-            throw new invalidEmailException("Invalid email on line " + x + errorIndex); 
+            throw new InvalidEmailException("Invalid email on line " + x + errorIndex); 
         }
     }
 }
@@ -77,7 +77,7 @@ function getStudentEmails(){
                     removeEmailList = removeEmailList.concat(tempEmails);
                 }
             }catch(e){
-                throw new groupException("Problem with group on line " + errorIndex); 
+                throw new GroupException("Problem with group on line " + errorIndex); 
             }
         }
     }

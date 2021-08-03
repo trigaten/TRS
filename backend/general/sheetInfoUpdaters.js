@@ -12,7 +12,7 @@ function setNextStep(step) {
   try {
     homeSheet = getHomeSheet();
   } catch (e) {
-    return handleException(e, sheetNotFoundException)
+    return handleException(e, SheetNotFoundException)
   }
   try {
     let stepCell = homeSheet.getRange(5, 3);
@@ -27,7 +27,7 @@ function logAction(action) {
     homeSheet = getHomeSheet();
 
   } catch (e) {
-    return handleException(e, sheetNotFoundException)
+    return handleException(e, SheetNotFoundException)
   }
   try {
     let logCell = homeSheet.getRange(getLogStep() + 6, 1);
@@ -43,7 +43,7 @@ function updateStudentsDoneList(e) {
   try {
     studentSheet = getStudentSheet();
   } catch (error) {
-    return handleException(error, sheetNotFoundException);
+    return handleException(error, SheetNotFoundException);
   }
   let doneList = studentSheet.getRange("E6:E").getValues();
 
@@ -84,7 +84,7 @@ function updateTeachersDoneList(e) {
   try {
     teacherSheet = getTeacherSheet();
   } catch (error) {
-    return handleException(error, sheetNotFoundException)
+    return handleException(error, SheetNotFoundException)
   }
 
   let teacherEmailCols = teacherSheet.getRange("B6:B").getValues();
@@ -135,14 +135,14 @@ function betaUpdateTeachersDoneList() {
   try {
     tFF = getTeacherFormsFolder();
   } catch (e) {
-    return handleException(e, folderNotFoundException);
+    return handleException(e, FolderNotFoundException);
   }
 
   let teacherSheet;
   try {
     teacherSheet = getTeacherSheet();
   } catch (e) {
-    return handleException(e, sheetNotFoundException)
+    return handleException(e, SheetNotFoundException)
   }
 
   //index at which names start
@@ -195,14 +195,14 @@ function betaUpdateTeachersDoneList() {
   try {
     tFF = getTeacherFormsFolder();
   } catch (e) {
-    return handleException(e, folderNotFoundException);
+    return handleException(e, FolderNotFoundException);
   }
 
   let teacherSheet;
   try {
     teacherSheet = getTeacherSheet();
   } catch (e) {
-    return handleException(e, sheetNotFoundException)
+    return handleException(e, SheetNotFoundException)
   }
 
   //index at which names start

@@ -4,7 +4,7 @@ function getStudentNames() {
     try {
         studentData = getStudentData();
     } catch (e) {
-        return handleException(e, sheetNotFoundException);
+        return handleException(e, SheetNotFoundException);
     }
     let names = [];
     for (var r = 1; r < studentData.length; r++) {
@@ -18,7 +18,7 @@ function getStudentData() {
     try {
         studentDataSheet = getStudentDataSheet();
     } catch (e) {
-        return handleException(e, sheetNotFoundException)
+        return handleException(e, SheetNotFoundException)
     }
     return studentDataSheet.getDataRange().getValues();
 }
@@ -28,7 +28,7 @@ function getFinalStudentSheetData() {
     try {
         sheet = getFinalStudentSheet();
     } catch (e) {
-        return handleException(e, sheetNotFoundException)
+        return handleException(e, SheetNotFoundException)
     }
     let lastRow = sheet.getLastRow();
     if (lastRow == 0) {
@@ -42,7 +42,7 @@ function getFinalTeacherSheetData() {
     try {
         sheet = getFinalTeacherSheet();
     } catch (e) {
-        return handleException(e, sheetNotFoundException);
+        return handleException(e, SheetNotFoundException);
     }
     let lastRow = sheet.getLastRow();
     if (lastRow == 0) {
@@ -58,7 +58,7 @@ function getTeacherEmailFormat() {
         let values = range.getValues();
         return values[0][0];
     } catch (e) {
-        return handleException(e, sheetNotFoundException);
+        return handleException(e, SheetNotFoundException);
     }
 }
 

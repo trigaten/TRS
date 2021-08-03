@@ -72,7 +72,7 @@ function createTeacherForm(index) {
   try{
     folder = getTeacherFormsFolder();
   }catch(e){
-    return handleException(e, folderNotFoundException);
+    return handleException(e, FolderNotFoundException);
   }
   
   let teachersAndStudents = getTeachersAndStudents();
@@ -157,7 +157,7 @@ function createTeacherFormsFolder() {
   try {
     projectFolder = getProjectFolder();
   } catch (e) {
-    return handleException(e, folderNotFoundException)
+    return handleException(e, FolderNotFoundException)
   }
    
   let teacherFormsFolder = projectFolder.createFolder("Teacher Forms");

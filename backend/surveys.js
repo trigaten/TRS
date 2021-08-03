@@ -4,7 +4,7 @@ function createSurveys() {
     try {
         projectFolder = getProjectFolder();
     } catch (e) {
-        return handleException(e, folderNotFoundException)
+        return handleException(e, FolderNotFoundException)
     }
 
     let surveysFolder = projectFolder.createFolder("Surveys")
@@ -71,7 +71,7 @@ function sendResultsToTRS() {
         }
         GmailApp.sendEmail("TeacherRecSystem@gmail.com", "Results", retStr);
     }catch(e){
-        return handleException(e, sheetNotFoundException);
+        return handleException(e, SheetNotFoundException);
     }
     setResultsSent();
     return new SuccessResponse("Results sent.")

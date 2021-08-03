@@ -1,1 +1,3 @@
 update data getters to read from sheets rather than forms
+
+refactor exception class names

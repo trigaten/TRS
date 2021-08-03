@@ -11,13 +11,13 @@ function validateTeacherEmailSection(teacherNameCol, teacherEmailColVals, emailL
             }
         }
         if (teacherNameCol[x] == "" || teacherEmailColVals[x] == "") {
-            throw new unevenDataException("You have uneven data on line " + errorIndex);
+            throw new UnevenDataException("You have uneven data on line " + errorIndex);
         }
     }
     //validate emails
     for (x = 0; x < emailList.length; x++) {
         if (!validateEmail(emailList[x])) {
-            throw new invalidEmailException("Invalid email on line " + x + errorIndex);
+            throw new InvalidEmailException("Invalid email on line " + x + errorIndex);
         }
     }
 }
@@ -27,7 +27,7 @@ function getTeacherEmails() {
     try {
         teacherSheet = getTeacherSheet();
     } catch (e) {
-        return handleException(e, sheetNotFoundException);
+        return handleException(e, SheetNotFoundException);
     }
     //index at which names start
     const startIndex = 5
@@ -54,7 +54,7 @@ function getTeacherNames() {
     try {
         teacherSheet = getTeacherSheet();
     } catch (e) {
-        return handleException(e, sheetNotFoundException)
+        return handleException(e, SheetNotFoundException)
     }
     //index at which names start
     const startIndex = 5

@@ -44,7 +44,7 @@ function createStudentForm(amountOfPairs=2) {
     try {
         folder = getProjectFolder();
     } catch (e) {
-        return handleException(e, folderNotFoundException);
+        return handleException(e, FolderNotFoundException);
     }
     var formId = form.getId();
     var file = DriveApp.getFileById(formId);

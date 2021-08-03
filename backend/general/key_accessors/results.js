@@ -71,7 +71,7 @@ function surveysCreated(){
       let form = getStudentSurvey();
       return form.getPublishedUrl();
     } catch (e) {
-      return handleException(e, formNotFoundException);
+      return handleException(e, FormNotFoundException);
     }
  }
   
@@ -80,7 +80,7 @@ function surveysCreated(){
       let form = getTeacherSurvey();
       return form.getPublishedUrl();
     } catch (e) {
-      return handleException(e, formNotFoundException);
+      return handleException(e, FormNotFoundException);
     }
   }
   
@@ -89,7 +89,7 @@ function surveysCreated(){
     try {
       return FormApp.openById(scriptProperties.getProperty(STUDENTSURVEYID));
     } catch (error) {
-      throw new formNotFoundException("Student survey not found.")
+      throw new FormNotFoundException("Student survey not found.")
     }
   }
   
@@ -98,6 +98,6 @@ function surveysCreated(){
     try {
       return FormApp.openById(scriptProperties.getProperty(TEACHERSURVEYID));
     } catch (error) {
-      throw new formNotFoundException("Teacher survey not found.")
+      throw new FormNotFoundException("Teacher survey not found.")
     }
   }

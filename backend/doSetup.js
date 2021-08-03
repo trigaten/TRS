@@ -27,7 +27,7 @@ function doSetup() {
   try {
     projectFolder = getProjectFolder()
   } catch (e) {
-    return handleException(e, folderNotFoundException)
+    return handleException(e, FolderNotFoundException)
   }
 
   //make individual sheets
@@ -65,7 +65,7 @@ function generateEmailDrafts(){
   // student form email
   let studentFormEmail = GmailApp.createDraft("", "Your Teacher Recommender Form", getDefaultStudentEmailText());
   setStudentFormEmailId(studentFormEmail.getId());
-  
+
 }
 
 function getProjectName() {

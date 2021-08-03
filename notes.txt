@@ -65,3 +65,6 @@ Teacher forms not being closed after algo run
 check teacher 0 rly means impossible
 
 flipname breaks with long last names with multiple spaces
+
+
+https://sites.google.com/site/scriptsexamples/custom-methods/gsunit

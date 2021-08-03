@@ -8,7 +8,7 @@ function sendTeacherEmails() {
     try {
         tFF = getTeacherFormsFolder();
     } catch (e) {
-        return handleException(e, formNotFoundException);
+        return handleException(e, FormNotFoundException);
     }
     let teacherNames = getTeacherNames();
     if (isResponse(teacherNames)){
@@ -64,7 +64,7 @@ function sendTeacherReminderEmails() {
     try {
         tFF = getTeacherFormsFolder();
     } catch (e) {
-        return handleException(e, folderNotFoundException)
+        return handleException(e, FolderNotFoundException)
     }
 
     for (var x = 0; x < teacherNames.length; x++) {
