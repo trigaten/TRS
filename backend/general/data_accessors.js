@@ -71,3 +71,11 @@ function getStudentNameToEmailDict() {
 
     return dict;
 }
+
+function getStudentFormEmailEditLink(){
+    let email = getStudentFormEmail();
+    let message = email.getMessage();
+    let date = message.getDate();
+    let epoch =   Math.floor(date / 1000);
+    return `https://mail.google.com/mail/u/0/#search/after%3A+${epoch}+before%3A+${epoch}`
+}

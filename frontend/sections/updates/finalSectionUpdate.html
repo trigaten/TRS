@@ -27,21 +27,9 @@
                         document.getElementById("fTEmailButton").className = "waves-effect waves-light btn-small green darken-1";
                     }
                 }
-
             }
         }
-        google.script.run.withSuccessHandler(setFinalStudentMessageText).getFinalStudentMessage();
-        google.script.run.withSuccessHandler(setFinalTeacherMessageText).getFinalTeacherMessage();
     }
-    function setFinalStudentMessageText(msg) {
-        document.getElementById("fs-textarea1").innerHTML = msg;
-        doFinalStudentEditButtonUpdate();
-    }
-    function setFinalTeacherMessageText(msg) {
-        document.getElementById("ft-textarea1").innerHTML = msg;
-        doFinalTeacherEditButtonUpdate();
-    }
-
 </script>
 
 </html>

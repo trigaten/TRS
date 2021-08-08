@@ -28,22 +28,12 @@
         Student Emails
         <div class="center-align" style="margin-top: 20px;">
 
-            <a id="s-edit-button" class="waves-effect waves-light btn-small green darken-1"
-                onclick="toggleTextInput()"><i class="material-icons right">email</i>EDIT</a>
+            <a id="s-edit-button" class="waves-effect waves-light btn-small green darken-1">
+                <i class="material-icons right">email</i>EDIT</a>
             <a id="sEmailButton" class="waves-effect waves-light btn-small disabled green darken-1"
                 onclick="confirmSendStudentEmails()"><i class="material-icons right">
                     <div id="sEmailButtonIcon">lock_outline</div>
                 </i>SEND</a>
-
-            <div id="s-message-info"><br>
-                <div class="input-field col s12">
-                    <textarea id="s-textarea1" class="materialize-textarea">Enter\nYour\nMessage\nHere</textarea>
-                    <script>
-                    </script>
-                    <label for="s-textarea1">Enter Message</label>
-                </div>
-            </div>
-
             <a id="sReminderEmailButton" class="waves-effect waves-light btn-small disabled spaced green darken-1"
                 onclick="confirmSendStudentReminderEmails()">Send Reminder
                 Emails</a>
@@ -56,6 +46,20 @@
         .withSuccessHandler(doStudentsSectionUpdate)
         .withFailureHandler(toastUnknownError)
         .getProgramState();
+    
+    google.script.run
+        .withSuccessHandler(setStudentFormEmailEditLink)
+        .withFailureHandler(toastUnknownError)
+        .getStudentFormEmailEditLink();
+
+
+    function setStudentFormEmailEditLink(link){
+        console.log(link)
+
+        console.log("OOOOO")
+        document.getElementById("s-edit-button").href = link
+        document.getElementById("s-edit-button").target = "_blank"
+    }
 
     function showPairsAmount(amt) {
         document.getElementById("pairs").value = amt;
@@ -162,41 +166,4 @@
         resetTitleText()
     }
 </script>
-
-<script>
-    var messageInfoOpen = false;
-    $('#s-message-info').toggle(1);
-    function toggleTextInput() {
-        $('#s-message-info').toggle(500);
-        const elem = document.getElementById("s-edit-button");
-        //being closed
-        if (messageInfoOpen) {
-            google.script.run
-                .withFailureHandler(toastUnknownError)
-                .setStudentMessage($("#s-textarea1").val());
-            elem.innerHTML = `<i class="material-icons right">email</i>EDIT`;
-            elem.classList.remove("red");
-            doStudentEditButtonUpdate();
-        } else {
-            elem.classList.remove("green"); elem.classList.remove("blue"); elem.classList.remove("darken-1");
-            elem.innerHTML = `SAVE`;
-            elem.classList.add("red");
-        }
-        messageInfoOpen = !messageInfoOpen;
-    }
-    function doStudentEditButtonUpdate() {
-        if ($("#s-textarea1").val() != "") {
-            document.getElementById("s-edit-button").classList.add("blue");
-            document.getElementById("s-edit-button").classList.add("lighten-2");
-            document.getElementById("s-edit-button").classList.remove("green");
-            document.getElementById("s-edit-button").classList.remove("darken-1");
-        } else {
-            document.getElementById("s-edit-button").classList.remove("blue");
-            document.getElementById("s-edit-button").classList.remove("lighten-2");
-            document.getElementById("s-edit-button").classList.add("green");
-            document.getElementById("s-edit-button").classList.add("darken-1");
-        }
-    }
-</script>
-
 </html>

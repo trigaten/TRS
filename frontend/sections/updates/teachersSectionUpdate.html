@@ -18,11 +18,6 @@
                 }
             }
         }
-        google.script.run.withSuccessHandler(setTeacherMessageText).getTeacherMessage();
-    }
-    function setTeacherMessageText(msg) {
-        document.getElementById("t-textarea1").innerHTML = msg;
-        doTeacherEditButtonUpdate();
     }
 </script>
 

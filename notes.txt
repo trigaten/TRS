@@ -77,3 +77,11 @@ https://sites.google.com/site/scriptsexamples/custom-methods/gsunit
   handle teachers who no students selected appropriately
 
   handle teachers with no result
+
+  Math.floor(studentFormEmail.getMessage().getDate() /1000)
+
+
+  make note that probably will break due to timeout if u dont have a paid account
+
+
+  maybe fix this with lazy triggers?

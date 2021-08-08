@@ -1,26 +1,27 @@
 <html>
-  <script>
+<script>
 
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.tooltipped');
     var instances = M.Tooltip.init(elems);
   });
-  </script>
+</script>
 <div class="footer" style="padding:0px;margin: 0px;">
   <div class="card blue-grey" style="padding:0px;margin: 0px;">
     <div class="card-content white-text center-align">
-      <a class="waves-effect waves-light btn-small tooltipped" data-position="top" data-tooltip="Email TRS" href="mailto:TeacherRecSystem@gmail.com"><i
-          class="material-icons">contact_mail</i></a>
+      <a class="waves-effect waves-light btn-small tooltipped" data-position="top" data-tooltip="Email TRS"
+        href="mailto:TeacherRecSystem@gmail.com"><i class="material-icons">contact_mail</i></a>
       <a class="waves-effect waves-light btn-small" href="https://trigaten.github.io/TeacherRecommenderSite/"
         target="_blank"> TRS WEBSITE</a>
-      <a class="waves-effect waves-light btn-small tooltipped" data-position="top" data-tooltip="Settings" id="settings-button" onclick="toggleSettings()"><i class="material-icons">settings</i></a>
+      <a class="waves-effect waves-light btn-small tooltipped" data-position="top" data-tooltip="Settings"
+        id="settings-button" onclick="toggleSettings()"><i class="material-icons">settings</i></a>
     </div>
   </div>
 </div>
 <script>
   $('#settings').toggle(1);
   var settingsOpen = false;
-  function toggleSettings(){
+  function toggleSettings() {
     let elem = document.getElementById("settings-button");
     //close settings
     if (settingsOpen) {
@@ -42,4 +43,5 @@
     mid.scrollTop = 0;
   }
 </script>
+
 </html>
